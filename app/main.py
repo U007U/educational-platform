@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import os
 from .database import engine, SessionLocal, Base, get_db
 from .models import User, Course, Lesson
+from app.routers import users, courses
 
 # Создаём таблицы (только один раз)
 Base.metadata.create_all(bind=engine)
@@ -29,3 +30,6 @@ async def health_check():
 @app.get("/test-db")
 async def test_db(db: Session = Depends(get_db)):
     return {"db": "connected", "tables": ["users", "courses", "lessons"]}
+
+app.include_router(users.router)
+app.include_router(courses.router)
