@@ -1,30 +1,89 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 Обучающая платформа</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 30px; 
+            font-size: 28px;
+        }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border: 2px solid #ddd; 
+            border-radius: 10px; 
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus { 
+            outline: none; 
+            border-color: #667eea; 
+        }
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        .features { 
+            margin-top: 30px; 
+            text-align: center; 
+            color: #666; 
+            font-size: 14px;
+        }
+        .features ul { list-style: none; }
+        .features li { margin: 5px 0; }
+    </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>🎓 Обучающая платформа</h1>
+        <h1>🚀 Обучающая платформа</h1>
         <div class="login-form">
-            <h2>Авторизация</h2>
             <form id="loginForm">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Пароль" required>
-                <button type="submit">Войти</button>
+                <input type="email" id="email" placeholder="📧 Email" required>
+                <input type="password" id="password" placeholder="🔒 Пароль" required>
+                <button type="submit">🚀 Войти</button>
             </form>
-            <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
         </div>
-        <div id="dashboard" style="display:none;">
-            <h2>Добро пожаловать!</h2>
-            <button onclick="loadCourses()">📚 Мои курсы</button>
-            <div id="courses"></div>
+        <div class="features">
+            <p><strong>✅ Что готово:</strong></p>
+            <ul>
+                <li>Users/Courses/Lessons CRUD</li>
+                <li>JWT авторизация</li>
+                <li>Docker + PostgreSQL</li>
+                <li>API Документация</li>
+            </ul>
+            <p><a href="/docs" style="color: #667eea; text-decoration: none;">📚 API Документация</a></p>
         </div>
     </div>
-    <script src="/static/js/app.js"></script>
 </body>
-
 </html>
