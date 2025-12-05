@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import os
 from .database import engine, SessionLocal, Base, get_db
 from .models import User, Course, Lesson
-from app.routers import users, courses
+from app.routers import users, courses, lessons
 
 # Создаём таблицы (только один раз)
 Base.metadata.create_all(bind=engine)
@@ -33,3 +33,4 @@ async def test_db(db: Session = Depends(get_db)):
 
 app.include_router(users.router)
 app.include_router(courses.router)
+app.include_router(lessons.router)
