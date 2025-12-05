@@ -87,3 +87,30 @@
     </div>
 </body>
 </html>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    try {
+        const response = await fetch('/auth/token', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `username=${email}&password=${password}`
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.access_token);
+            alert('✅ Вход успешен!');
+            window.location.href = '/dashboard';
+        } else {
+            alert('❌ Неверный логин/пароль');
+        }
+    } catch (error) {
+        alert('❌ Ошибка сервера');
+    }
+});
+</script>
