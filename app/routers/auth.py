@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime, timedelta
-from jose import jwt
+from jose import jwt  # ✅ ПРАВИЛЬНЫЙ IMPORT
 from passlib.context import CryptContext
 from app.database import get_db
 from app.models import User
@@ -35,18 +35,26 @@ def create_access_token(data: dict):
 
 @router.post("/register", response_model=Token)
 def register(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == form_data.username).first()
-    if user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
-    hashed_password = get_password_hash(form_data.password)
-    db_user = User(email=form_data.username, full_name=form_data.username, hashed_password=hashed_password, role="student")
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    
-    access_token = create_access_token(data={"sub": db_user.email})
-    return {"access_token": access_token, "token_type": "bearer"}
+    try:
+        user = db.query(User).filter(User.email == form_data.username).first()
+        if user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        
+        hashed_password = get_password_hash(form_data.password)
+        db_user = User(
+            email=form_data.username,
+            full_name=form_data.username,
+            hashed_password=hashed_password,
+            role="student"
+        )
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        
+        access_token = create_access_token(data={"sub": db_user.email})
+        return {"access_token": access_token, "token_type": "bearer"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/token", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
