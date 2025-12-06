@@ -2,7 +2,9 @@
 <nav class="menu" id="menu">
     <div class="menu-header">
         <svg style="width:40px;height:40px;fill:var(--accent);"><use href="#profile"/></svg>
-        <div id="userEmailMenu">test@example.com</div>
+        <!-- ИЗМЕНИ -->
+        <div id="userEmailMenu">{{ user_email or 'test@example.com' }}</div>
+
     </div>
 
     <a href="#" class="menu-item" onclick="loadCourses()">
@@ -19,17 +21,19 @@
     </a>
     
     <!-- Bootstrap Theme Switcher - 3 КНОПКИ -->
+    <!-- Theme Switcher - 3 КНОПКИ FontAwesome -->
     <div class="menu-theme-switch">
         <button title="Темная" id="dark" class="btn-theme">
-            <i class="bi bi-moon"></i>
+            <i class="fa fa-moon-o"></i>
         </button>
         <button title="Светлая" id="light" class="btn-theme">
-            <i class="bi bi-sun"></i>
+            <i class="fa fa-sun-o"></i>
         </button>
         <button title="Системная" id="system" class="btn-theme">
-            <i class="bi bi-display"></i>
+            <i class="fa fa-television"></i>
         </button>
     </div>
+
 
     <a href="/" class="menu-item logout-item" onclick="logout()">
         <svg><use href="#logout"/></svg><span>Выйти</span>

@@ -1,0 +1,84 @@
+/* ========================================
+   MENU - БОКОВОЕ МЕНЮ + ПУНКТЫ
+========================================= */
+
+/* ОСНОВНОЙ КОНТЕЙНЕР */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1002;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* МЕНЮ */
+.menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: var(--menu-width);
+    height: 100vh;
+    background: var(--bg-card);
+    backdrop-filter: blur(30px);
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 2.5rem 2rem;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.3);
+    border-left: 1px solid var(--glass);
+    z-index: 9999;
+    overflow-y: auto;
+    will-change: right;
+}
+
+.menu.active {
+    right: 0;
+}
+
+/* ПРОКРУТКА */
+.menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 3px;
+}
+
+/* БЛОКИРОВКА BODY */
+body.menu-open {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* МОБИЛЬНЫЕ */
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+    .menu { width: 85vw; max-width: 360px; }
+}
+
