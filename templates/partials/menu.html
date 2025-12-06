@@ -1,0 +1,53 @@
+<!-- ВСПЛЫВАЮЩЕЕ МЕНЮ -->
+<nav class="menu" id="menu">
+    <div class="menu-header">
+        <svg style="width:40px;height:40px;fill:var(--accent);"><use href="#profile"/></svg>
+        <div id="userEmailMenu">test@example.com</div>
+    </div>
+
+    <a href="#" class="menu-item" onclick="loadCourses()">
+        <svg><use href="#courses"/></svg><span>Курсы</span><span id="coursesCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
+    </a>
+    <a href="#" class="menu-item" onclick="loadLessons()">
+        <svg><use href="#lessons"/></svg><span>Уроки</span><span id="lessonsCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
+    </a>
+    <a href="#" class="menu-item" onclick="loadProfile()">
+        <svg><use href="#profile"/></svg><span>Профиль</span>
+    </a>
+    <a href="/docs" class="menu-item">
+        <svg><use href="#docs"/></svg><span>API Документация</span>
+    </a>
+    
+    <a href="#" class="menu-item theme-trigger" onclick="toggleThemeMenu(event)">
+        <svg><use href="#theme"/></svg><span>Тема</span>
+    </a>
+
+    <!-- Карточка тем -->
+    <div class="theme-card" id="themeCard">
+        <div class="theme-item">
+            <span>Системная</span>
+            <label class="toggle-switch">
+                <input type="checkbox" data-theme="system">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="theme-item">
+            <span>Светлая</span>
+            <label class="toggle-switch">
+                <input type="checkbox" data-theme="light">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="theme-item">
+            <span>Тёмная</span>
+            <label class="toggle-switch">
+                <input type="checkbox" data-theme="dark">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <a href="/" class="menu-item logout-item" onclick="logout()">
+        <svg><use href="#logout"/></svg><span>Выйти</span>
+    </a>
+</nav>

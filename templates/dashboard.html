@@ -1,29 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет - EduPlatform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="logo">Личный кабинет</div>
-        <div class="hamburger">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
+{% extends "base.html" %}
 
+{% block title %}Личный кабинет - EduPlatform{% endblock %}
+{% block logo %}Личный кабинет{% endblock %}
+
+{% block content %}
     <div class="container">
         <div class="dashboard-grid">
             <div class="card" onclick="loadCourses()">
                 <div class="card-title">Курсы</div>
-                <div class="card-text" id="coursesCount">Загрузка...</div>
+                <div class="card-text" id="coursesCountDash">Загрузка...</div>
             </div>
             <div class="card" onclick="loadLessons()">
                 <div class="card-title">Уроки</div>
-                <div class="card-text" id="lessonsCount">Загрузка...</div>
+                <div class="card-text" id="lessonsCountDash">Загрузка...</div>
             </div>
             <div class="card" onclick="loadProfile()">
                 <div class="card-title">Профиль</div>
@@ -31,13 +20,4 @@
             </div>
         </div>
     </div>
-
-    <nav class="menu" id="menu">
-        <div id="userEmail" style="font-weight: 600; margin-bottom: 1rem;"></div>
-        <a href="/" class="menu-item" onclick="logout()">🚪 Выйти</a>
-        <a href="/docs" class="menu-item">📚 API Документация</a>
-    </nav>
-
-    <script src="/static/js/app.js"></script>
-</body>
-</html>
+{% endblock %}

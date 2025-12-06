@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPlatform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="logo">EduPlatform</div>
-        <div class="hamburger">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
+{% extends "base.html" %}
 
+{% block title %}EduPlatform{% endblock %}
+{% block logo %}EduPlatform{% endblock %}
 
+{% block content %}
     <div class="container">
         <div class="login-card">
             <div class="logo">EduPlatform</div>
@@ -26,12 +14,4 @@
             </form>
         </div>
     </div>
-
-    <nav class="menu" id="menu">
-        <a href="/docs" class="menu-item">📚 API Документация</a>
-        <a href="/dashboard" class="menu-item">👤 Личный кабинет</a>
-    </nav>
-
-    <script src="/static/js/app.js"></script>
-</body>
-</html>
+{% endblock %}
