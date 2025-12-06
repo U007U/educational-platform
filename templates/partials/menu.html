@@ -18,33 +18,17 @@
         <svg><use href="#docs"/></svg><span>API Документация</span>
     </a>
     
-    <a href="#" class="menu-item theme-trigger" onclick="toggleThemeMenu(event)">
-        <svg><use href="#theme"/></svg><span>Тема</span>
-    </a>
-
-    <!-- Карточка тем -->
-    <div class="theme-card" id="themeCard">
-        <div class="theme-item">
-            <span>Системная</span>
-            <label class="toggle-switch">
-                <input type="checkbox" data-theme="system">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-        <div class="theme-item">
-            <span>Светлая</span>
-            <label class="toggle-switch">
-                <input type="checkbox" data-theme="light">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-        <div class="theme-item">
-            <span>Тёмная</span>
-            <label class="toggle-switch">
-                <input type="checkbox" data-theme="dark">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
+    <!-- Bootstrap Theme Switcher - 3 КНОПКИ -->
+    <div class="menu-theme-switch">
+        <button title="Темная" id="dark" class="btn-theme">
+            <i class="bi bi-moon"></i>
+        </button>
+        <button title="Светлая" id="light" class="btn-theme">
+            <i class="bi bi-sun"></i>
+        </button>
+        <button title="Системная" id="system" class="btn-theme">
+            <i class="bi bi-display"></i>
+        </button>
     </div>
 
     <a href="/" class="menu-item logout-item" onclick="logout()">

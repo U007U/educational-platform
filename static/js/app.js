@@ -25,40 +25,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ВСПЛЫВАЮЩЕЕ МЕНЮ ТЕМ
-    window.toggleThemeMenu = function(event) {
-        event.preventDefault();
-        document.getElementById('themeCard').classList.toggle('active');
-    };
+    // BOOTSTRAP THEME SWITCHER
+    function setTheme(mode = 'auto') {
+        const userMode = localStorage.getItem('bs-theme');
+        const sysMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const useSystem = mode === 'system' || (!userMode && mode === 'auto');
+        const modeChosen = useSystem ? 'system' : mode === 'dark' || mode === 'light' ? mode : userMode;
 
-    // ЛОГИКА ПЕРЕКЛЮЧАТЕЛЕЙ ТЕМ
-    document.querySelectorAll('.toggle-switch input').forEach(input => {
-        input.addEventListener('change', function() {
-            const theme = this.dataset.theme;
-            
-            if (theme === 'system') {
-                localStorage.removeItem('theme');
-                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                document.documentElement.setAttribute('data-theme', systemDark ? 'dark' : 'light');
-            } else {
-                localStorage.setItem('theme', theme);
-                document.documentElement.setAttribute('data-theme', theme);
-            }
-            
-            document.getElementById('themeCard').classList.remove('active');
-        });
-    });
+        if (useSystem) localStorage.removeItem('bs-theme');
+        else localStorage.setItem('bs-theme', modeChosen);
 
-    // ЗАКРЫТИЕ МЕНЮ ТЕМ ПРИ КЛИКЕ НАДВОЕ
-    document.getElementById('themeCard')?.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
+        document.documentElement.setAttribute('data-bs-theme', useSystem ? (sysMode ? 'light' : 'dark') : modeChosen);
+        document.querySelectorAll('.btn-theme').forEach(e => e.classList.remove('text-primary'));
+        document.getElementById(modeChosen)?.classList.add('text-primary');
+    }
 
-    window.setTheme = function(theme) {
-        if (theme === 'system') localStorage.removeItem('theme');
-        else localStorage.setItem('theme', theme);
-        document.documentElement.setAttribute('data-theme', theme);
-    };
+    setTheme();
+    document.querySelectorAll('.btn-theme').forEach(e => e.addEventListener('click', () => setTheme(e.id)));
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => setTheme());
 
     window.loadCourses = window.loadLessons = window.loadProfile = function() {
         document.body.classList.remove('menu-open');
