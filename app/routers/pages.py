@@ -15,3 +15,7 @@ async def index(request: Request):
 async def get_courses(request: Request, db: Session = Depends(get_db)):
     # Пока простой список
     return templates.TemplateResponse("courses.html", {"request": request})
+
+@router.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})

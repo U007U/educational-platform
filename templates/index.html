@@ -3,114 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Обучающая платформа</title>
+    <title>🚀 EduPlatform</title>
     <style>
+        :root {
+            --bg-primary: #ffffff; --bg-secondary: #f8fafc; --text-primary: #1e293b; --text-secondary: #64748b;
+            --accent: #3b82f6; --accent-hover: #2563eb; --border: #e2e8f0; --shadow: rgba(0,0,0,0.1);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0f172a; --bg-secondary: #1e293b; --text-primary: #f1f5f9; --text-secondary: #94a3b8;
+            --accent: #60a5fa; --accent-hover: #3b82f6; --border: #334155; --shadow: rgba(0,0,0,0.3);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: var(--bg-primary); color: var(--text-primary);
+            min-height: 100vh; transition: all 0.3s ease;
         }
         .container { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 90%;
+            max-width: 450px; margin: 0 auto; padding: 2rem; min-height: 100vh; 
+            display: flex; flex-direction: column; justify-content: center;
         }
-        h1 { 
-            text-align: center; 
-            color: #333; 
-            margin-bottom: 30px; 
-            font-size: 28px;
-        }
+        .header { text-align: center; margin-bottom: 2.5rem; }
+        .logo { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: var(--text-secondary); margin-top: 0.5rem; font-size: 1.1rem; }
+        .form-group { margin-bottom: 1.5rem; }
         input { 
-            width: 100%; 
-            padding: 15px; 
-            margin: 10px 0; 
-            border: 2px solid #ddd; 
-            border-radius: 10px; 
-            font-size: 16px;
-            transition: border-color 0.3s;
+            width: 100%; padding: 1rem 1.25rem; border: 2px solid var(--border); border-radius: 12px; 
+            font-size: 1rem; background: var(--bg-secondary); color: var(--text-primary);
+            transition: all 0.2s; font-family: inherit;
         }
-        input:focus { 
-            outline: none; 
-            border-color: #667eea; 
+        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .btn { 
+            width: 100%; padding: 1rem 1.25rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 14px var(--shadow);
         }
-        button { 
-            width: 100%; 
-            padding: 15px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; 
-            border: none; 
-            border-radius: 10px; 
-            font-size: 16px; 
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px var(--shadow); }
+        .theme-toggle { 
+            position: fixed; top: 1rem; right: 1rem; background: var(--bg-secondary); border: 2px solid var(--border);
+            border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; font-size: 1.2rem;
         }
-        button:hover { transform: translateY(-2px); }
-        .features { 
-            margin-top: 30px; 
-            text-align: center; 
-            color: #666; 
-            font-size: 14px;
-        }
-        .features ul { list-style: none; }
-        .features li { margin: 5px 0; }
+        .features { margin-top: 2rem; text-align: center; }
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+        .feature { padding: 1rem; background: var(--bg-secondary); border-radius: 12px; }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    
     <div class="container">
-        <h1>🚀 Обучающая платформа</h1>
-        <div class="login-form">
-            <form id="loginForm">
-                <input type="email" id="email" placeholder="📧 Email" required>
-                <input type="password" id="password" placeholder="🔒 Пароль" required>
-                <button type="submit">🚀 Войти</button>
-            </form>
+        <div class="header">
+            <div class="logo">EduPlatform</div>
+            <div class="subtitle">Современная платформа для обучения</div>
         </div>
+        
+        <form id="loginForm" class="form-group">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="📧 test@test.com" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="🔒 123456" required>
+            </div>
+            <button type="submit" class="btn">🚀 Войти</button>
+        </form>
+        
         <div class="features">
-            <p><strong>✅ Что готово:</strong></p>
-            <ul>
-                <li>Users/Courses/Lessons CRUD</li>
-                <li>JWT авторизация</li>
-                <li>Docker + PostgreSQL</li>
-                <li>API Документация</li>
-            </ul>
-            <p><a href="/docs" style="color: #667eea; text-decoration: none;">📚 API Документация</a></p>
+            <div>✅ JWT авторизация</div>
+            <div class="features-grid">
+                <div class="feature">👥 Users CRUD</div>
+                <div class="feature">📚 Courses CRUD</div>
+                <div class="feature">📖 Lessons CRUD</div>
+                <div class="feature">🐳 Docker ready</div>
+            </div>
+            <a href="/docs" style="color: var(--accent); text-decoration: none; margin-top: 1rem; display: inline-block;">📚 API Документация</a>
         </div>
     </div>
+
+    <script>
+        // ТЕМА ПО УМОЛЧАНИЮ пользователя
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+        
+        async function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/auth/token', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.access_token);
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('❌ Неверный логин/пароль');
+                }
+            } catch (error) {
+                alert('❌ Ошибка сервера');
+            }
+        });
+    </script>
 </body>
 </html>
 
-<script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
-    try {
-        const response = await fetch('/auth/token', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `username=${email}&password=${password}`
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('token', data.access_token);
-            alert('✅ Вход успешен!');
-            window.location.href = '/dashboard';
-        } else {
-            alert('❌ Неверный логин/пароль');
-        }
-    } catch (error) {
-        alert('❌ Ошибка сервера');
-    }
-});
-</script>
