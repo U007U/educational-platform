@@ -1,81 +1,71 @@
 Уже сделано
-Инициализирован git-репозиторий, создана структурная основа проекта.
+Инициализирован git-репозиторий, создана структурная основа проекта (27+ коммитов).
 
-Настроено виртуальное окружение и зависимости: FastAPI, SQLAlchemy, PostgreSQL, Docker.
+Настроено виртуальное окружение и зависимости: FastAPI, SQLAlchemy, PostgreSQL, Docker, Jinja2, bcrypt 4.0.1.
 
-Создан GitHub репозиторий с 26 успешными коммитами.
+Создан GitHub репозиторий https://github.com/U007U/educational-platform.
 
 Настроен Docker Compose с сервисами API, PostgreSQL, Nginx, готовый к продакшену.
 
 Сконфигурирован Nginx как обратный прокси с поддержкой HTTP-заголовков.
 
-Подключён SQLAlchemy ORM с моделями: User, Course, Lesson.
+Подключён SQLAlchemy ORM с моделями: User, Course, Lesson (базовый CRUD).
 
-Проработано взаимодействие с PostgreSQL и SQLite (локально).
+Проработано взаимодействие с PostgreSQL и SQLite (локальная разработка).
 
-Реализован базовый CRUD для пользователей и курсов.
+Реализован JWT аутентификация/авторизация (register/login/token + bcrypt).
 
-Автоматическая генерация документации API через Swagger UI (/docs).
+Frontend: современный адаптивный дизайн (Jinja2 + CSS/JS файлы + тёмная/светлая тема).
 
-Настроена инъекция зависимостей и корректная работа с сессиями базы.
+StaticFiles: CSS/JS структура (static/css/style.css, static/js/app.js).
 
-Основы работы с миграциями готовы (Alembic в работе).
+Страницы: / (login), /dashboard (личный кабинет с hover-эффектами).
 
-Активное использование Docker для разработки и продакшен-деплоя.
+Swagger UI /docs с защищёнными роутами (/protected/profile JWT required).
 
-Healthchecks для PostgreSQL в docker-compose.
+Настроена инъекция зависимостей и сессии базы данных.
 
-Исправлены ошибки импорта и запуска.
+Healthchecks PostgreSQL в docker-compose.yml.
 
-JWT аутентификация и авторизация с bcrypt (4.0.1) успешно реализованы.
+Исправлены все ошибки импорта, запуска, bcrypt совместимости.
 
-Создан Frontend на базе Jinja2, оформлен современный адаптивный HTML.
+Подготовлены Dockerfile и docker-compose.yml для production.
 
-Защищённые маршруты API работают с JWT.
-
-Созданы базовые структуры тестирования (unit и integration).
-
-Подготовлены Dockerfile и docker-compose.yml.
-
-Заготовлена CI/CD интеграция с GitHub Actions.
+GitHub: 27 коммитов (main: 108d43d).
 
 Нужно сделать
-Полный CRUD для моделей, включая уроки (lessons.py), полноценное обновление (PUT) и удаление (DELETE).
+Полный CRUD (PUT/DELETE) для Users/Courses/Lessons.
 
-Внедрить пагинацию, фильтрацию, сортировку на уровне запросов.
+Пагинация, фильтрация, сортировка запросов.
 
-Перейти на асинхронные операции с asyncpg и SQLAlchemy Async API.
+Асинхронные операции (asyncpg + SQLAlchemy Async).
 
-Доработать комплексную валидацию с кастомной обработкой ошибок.
+Alembic миграции с откатом.
 
-Полноценно интегрировать Alembic для миграций с откатом.
+RBAC роли (admin/teacher/student).
 
-Усилить безопасность: CSRF защита, CORS whitelist, HTTPS с сертификатами LetsEncrypt.
+Безопасность: CSRF, CORS, HTTPS (LetsEncrypt).
 
-Реализовать RBAC с ролями admin, teacher, student.
+Логирование + мониторинг (Prometheus/Grafana/Sentry).
 
-Настроить централизованное логирование, мониторинг (Prometheus, Grafana), алерты (Sentry).
+Rate limiting + DDoS защита.
 
-Перейти на полностью асинхронный backend, добавить background tasks.
+Background tasks (email, файлы).
 
-Имплементировать rate-limiting и защиту от DDoS с API Gateway.
+Интеграции: email (SendGrid), платежи (Stripe), OAuth2 (Google/GitHub).
 
-Интегрировать внешние сервисы: email (SendGrid/Mailgun), платежи (Stripe), соцсети (OAuth2).
+SPA Frontend (React/Vue) или расширенный Jinja2.
 
-Разработать современный SPA frontend (React/Vue/Svelte) или расширить Jinja2.
+Frontend страницы: регистрация, курсы, уроки, профиль.
 
-Создать frontend страницы регистрации, входа, кабинет пользователя, доска курсов с проверкой доступа.
+Тесты (pytest unit/integration coverage).
 
-Покрыть весь код качественными тестами.
+CI/CD pipeline (GitHub Actions).
 
-Реализовать полный CI/CD pipeline (с тестированием и деплоем).
+Деплой: Render.com/Railway + HTTPS + домен.
 
-Настроить HTTPS, домены, Cloudflare и SSL.
+Оптимизация БД (индексы, профилирование).
 
-Оптимизировать базу: индексы, профилирование.
+Kubernetes/Helm масштабирование.
 
-Подготовить масштабирование с Kubernetes и Helm.
-
-Добавить Real-Time поддержку через WebSocket (чаты, уведомления).
-
-Дополнить документацию и подготовку к продакшен-развертыванию.
+WebSocket (уведомления, чаты).
