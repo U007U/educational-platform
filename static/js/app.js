@@ -25,6 +25,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // ВСПЛЫВАЮЩЕЕ МЕНЮ ТЕМ
+    window.toggleThemeMenu = function(event) {
+        event.preventDefault();
+        document.getElementById('themeCard').classList.toggle('active');
+    };
+
+    // ЛОГИКА ПЕРЕКЛЮЧАТЕЛЕЙ ТЕМ
+    document.querySelectorAll('.toggle-switch input').forEach(input => {
+        input.addEventListener('change', function() {
+            const theme = this.dataset.theme;
+            
+            if (theme === 'system') {
+                localStorage.removeItem('theme');
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', systemDark ? 'dark' : 'light');
+            } else {
+                localStorage.setItem('theme', theme);
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            
+            document.getElementById('themeCard').classList.remove('active');
+        });
+    });
+
+    // ЗАКРЫТИЕ МЕНЮ ТЕМ ПРИ КЛИКЕ НАДВОЕ
+    document.getElementById('themeCard')?.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
     window.setTheme = function(theme) {
         if (theme === 'system') localStorage.removeItem('theme');
         else localStorage.setItem('theme', theme);
