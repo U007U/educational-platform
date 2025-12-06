@@ -17,6 +17,10 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
 
+/* ТЕМА ПО УМОЛЧАНИЮ */
+body[data-theme="dark"] { /* ваши dark стили */ }
+body.no-scroll { overflow: hidden; }
+
 /* MOBILE-FIRST CONTAINER */
 .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
 
