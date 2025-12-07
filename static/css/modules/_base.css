@@ -46,3 +46,31 @@ body {
     min-height: 100vh;
     height: 100%;
 }
+
+/* ШАПКА САЙТА */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: relative;
+    z-index: 1002;
+    width: 100%;
+}
+
+/* ЛОГОТИП */
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--success));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* КОНТЕЙНЕР ДЛЯ КОНТЕНТА (не для header!) */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
