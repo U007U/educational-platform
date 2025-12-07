@@ -1,17 +1,4 @@
-/* ========================================
-   THEME - ПЕРЕКЛЮЧАТЕЛИ ТЕМ
-========================================= */
-
 /* ПЕРЕКЛЮЧАТЕЛЬ ТЕМ В МЕНЮ */
-.menu-theme-switch { 
-    display: flex; 
-    gap: 0.5rem; 
-    padding: 0.75rem; 
-    background: var(--glass); 
-    border-radius: 12px; 
-    margin: 0.75rem 0;
-}
-
 .btn-theme { 
     width: 24px; 
     height: 24px; 
