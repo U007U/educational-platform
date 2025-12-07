@@ -1,27 +1,12 @@
 <!-- ВСПЛЫВАЮЩЕЕ МЕНЮ -->
 <nav class="menu" id="menu">
+    <!-- ЗАГОЛОВОК МЕНЮ -->
     <div class="menu-header">
         <svg style="width:40px;height:40px;fill:var(--accent);"><use href="#profile"/></svg>
-        <!-- ИЗМЕНИ -->
         <div id="userEmailMenu">{{ user_email or 'test@example.com' }}</div>
-
     </div>
 
-    <a href="#" class="menu-item" onclick="loadCourses()">
-        <svg><use href="#courses"/></svg><span>Курсы</span><span id="coursesCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
-    </a>
-    <a href="#" class="menu-item" onclick="loadLessons()">
-        <svg><use href="#lessons"/></svg><span>Уроки</span><span id="lessonsCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
-    </a>
-    <a href="#" class="menu-item" onclick="loadProfile()">
-        <svg><use href="#profile"/></svg><span>Профиль</span>
-    </a>
-    <a href="/docs" class="menu-item">
-        <svg><use href="#docs"/></svg><span>API Документация</span>
-    </a>
-    
-    <!-- Bootstrap Theme Switcher - 3 КНОПКИ -->
-    <!-- Theme Switcher - 3 КНОПКИ FontAwesome -->
+    <!-- ПЕРЕКЛЮЧАТЕЛЬ ТЕМ -->
     <div class="menu-theme-switch">
         <button title="Темная" id="dark" class="btn-theme">
             <i class="fa fa-moon-o"></i>
@@ -34,8 +19,32 @@
         </button>
     </div>
 
-
-    <a href="/" class="menu-item logout-item" onclick="logout()">
-        <svg><use href="#logout"/></svg><span>Выйти</span>
+    <!-- ПУНКТЫ МЕНЮ -->
+    <a href="#" class="menu-item" onclick="loadCourses()">
+        <svg><use href="#courses"/></svg>
+        <span>Курсы</span>
+        <span id="coursesCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
+    </a>
+    
+    <a href="#" class="menu-item" onclick="loadLessons()">
+        <svg><use href="#lessons"/></svg>
+        <span>Уроки</span>
+        <span id="lessonsCount" style="margin-left:auto;opacity:0.7;font-size:0.9rem">0</span>
+    </a>
+    
+    <a href="#" class="menu-item" onclick="loadProfile()">
+        <svg><use href="#profile"/></svg>
+        <span>Профиль</span>
+    </a>
+    
+    <a href="/docs" class="menu-item">
+        <svg><use href="#docs"/></svg>
+        <span>API Документация</span>
+    </a>
+    
+    <!-- ВЫХОД (без специального класса) -->
+    <a href="/" class="menu-item" onclick="logout()">
+        <svg><use href="#logout"/></svg>
+        <span>Выйти</span>
     </a>
 </nav>

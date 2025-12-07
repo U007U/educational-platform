@@ -1,56 +1,8 @@
 /* ========================================
-   THEME - ПЕРЕКЛЮЧАТЕЛИ ТЕМ + USER INFO
+   THEME - ПЕРЕКЛЮЧАТЕЛИ ТЕМ
 ========================================= */
 
-/* ЗАГОЛОВОК МЕНЮ */
-.menu-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--glass);
-    margin-bottom: 2rem;
-}
-
-#userEmail, #userEmailMenu {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    background: var(--glass);
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    flex: 1;
-}
-
-/* ПУНКТЫ МЕНЮ */
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    border-radius: 12px;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-item svg {
-    width: 24px;
-    height: 24px;
-    opacity: 0.8;
-    flex-shrink: 0;
-}
-
-.menu-item:hover {
-    background: var(--glass);
-    color: var(--accent);
-    transform: translateX(12px);
-    box-shadow: 0 12px 32px rgba(66,153,225,0.2);
-}
-
-/* ПЕРЕКЛЮЧАТЕЛЬ ТЕМ */
+/* ПЕРЕКЛЮЧАТЕЛЬ ТЕМ В МЕНЮ */
 .menu-theme-switch { 
     display: flex; 
     gap: 0.5rem; 
@@ -85,11 +37,3 @@
     width: 100%;
     text-align: center;
 }
-
-/* LOGOUT */
-.logout-item { 
-    margin-top: 3rem; 
-    padding-top: 2rem; 
-    border-top: 1px solid var(--glass); 
-}
-
