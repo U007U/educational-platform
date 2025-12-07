@@ -1,26 +1,27 @@
 /* ПЕРЕКЛЮЧАТЕЛЬ ТЕМ В МЕНЮ */
 .btn-theme { 
-    width: 24px; 
-    height: 24px; 
-    border-radius: 8px; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 6px; 
     border: none; 
     background: var(--bg-card); 
     color: var(--text-secondary);
-    transition: all 0.3s; 
+    transition: all 0.2s; 
     box-shadow: var(--shadow-neo); 
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-theme:hover, .btn-theme.text-primary { 
     background: var(--accent); 
     color: white; 
-    box-shadow: 0 8px 24px rgba(66,153,225,0.4);
+    box-shadow: 0 4px 12px rgba(66,153,225,0.3);
 }
 
+/* FontAwesome иконки */
 .btn-theme i {
-    font-size: 0.8rem !important;
-    line-height: 24px;
-    display: block;
-    width: 100%;
-    text-align: center;
+    font-size: 0.85rem !important;
+    line-height: 1;
 }
