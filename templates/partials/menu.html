@@ -1,11 +1,12 @@
 <!-- ВСПЛЫВАЮЩЕЕ МЕНЮ -->
 <nav class="menu" id="menu">
     <!-- ЗАГОЛОВОК МЕНЮ -->
-    <div class="menu-header">
-        <svg style="width:40px;height:40px;fill:var(--accent);"><use href="#profile"/></svg>
-        <div id="userEmailMenu">{{ user_email or 'test@example.com' }}</div>
+    <div class="menu-header" style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;padding:0.5rem 0;">
+        <svg style="width:28px;height:28px;fill:var(--accent);opacity:0.7;"><use href="#profile"/></svg>
+        <div id="userEmailMenu" style="font-size:0.85rem;font-weight:500;">
+            {{ user_email or 'test@example.com' }}
+        </div>
     </div>
-
     <!-- ПЕРЕКЛЮЧАТЕЛЬ ТЕМ -->
     <div class="menu-item">
         <svg><use href="#theme-settings"/></svg>
