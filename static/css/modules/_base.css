@@ -1,4 +1,48 @@
-﻿:root{--bg-primary:linear-gradient(135deg,\#f5f7fa 0\%,\#c3cfe2 100\%);--bg-card:rgba(255,255,255,0.25);--glass:rgba(255,255,255,0.1);--text-primary:\#2d3748;--text-secondary:\#718096;--accent:\#4299e1;--accent-hover:\#3182ce;--success:\#48bb78;--shadow-neo:2px 2px 4px rgba(0,0,0,0.05),-2px -2px 4px rgba(255,255,255,0.8);--menu-width:340px;}
-[data-theme=dark]{--bg-primary:linear-gradient(135deg,\#1a202c 0\%,\#2d3748 100\%);--bg-card:rgba(45,55,72,0.7);--glass:rgba(0,0,0,0.25);--text-primary:\#f7fafc;--text-secondary:\#e2e8f0;--accent:\#63b3ed;--accent-hover:\#4299e1;}
-*,html{margin:0;padding:0;box-sizing:border-box;height:100\%;overflow-x:hidden;}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;}
+/* ========================================
+   BASE - ПЕРЕМЕННЫЕ + RESET
+========================================= */
+
+/* ЦВЕТА И ТЕМЫ */
+:root {
+    --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --bg-card: rgba(255,255,255,0.25);
+    --glass: rgba(255,255,255,0.1);
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --accent: #4299e1;
+    --accent-hover: #3182ce;
+    --success: #48bb78;
+    --shadow-neo: 2px 2px 4px rgba(0,0,0,0.05), 
+                   -2px -2px 4px rgba(255,255,255,0.8);
+    --menu-width: 340px;
+}
+
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    --bg-card: rgba(45,55,72,0.7);
+    --glass: rgba(0,0,0,0.25);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --accent: #63b3ed;
+    --accent-hover: #4299e1;
+}
+
+/* RESET + БАЗА */
+*, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    height: 100%;
+}

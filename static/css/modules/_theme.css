@@ -1,0 +1,26 @@
+/* ПЕРЕКЛЮЧАТЕЛЬ ТЕМ В МЕНЮ */
+.btn-theme { 
+    width: 24px; 
+    height: 24px; 
+    border-radius: 8px; 
+    border: none; 
+    background: var(--bg-card); 
+    color: var(--text-secondary);
+    transition: all 0.3s; 
+    box-shadow: var(--shadow-neo); 
+    cursor: pointer;
+}
+
+.btn-theme:hover, .btn-theme.text-primary { 
+    background: var(--accent); 
+    color: white; 
+    box-shadow: 0 8px 24px rgba(66,153,225,0.4);
+}
+
+.btn-theme i {
+    font-size: 0.8rem !important;
+    line-height: 24px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
