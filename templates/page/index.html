@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Главная | Образовательная платформа{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/index.css">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Образование нового поколения</h1>
+                <p class="hero-description">
+                    Современная платформа для обучения программированию, 
+                    дизайну и разработке с интерактивными курсами и проектами
+                </p>
+                <div class="hero-actions">
+                    <a href="/register" class="btn btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Начать бесплатно
+                    </a>
+                    <a href="/courses" class="btn btn-outline btn-large">
+                        <i class="fas fa-book-open"></i>
+                        Смотреть курсы
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <p class="section-subtitle">
+                Все что нужно для эффективного обучения в одном месте
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="feature-title">Экспертные курсы</h3>
+                <p class="feature-description">
+                    Курсы созданы практикующими специалистами с реальным опытом работы
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="feature-title">Практика</h3>
+                <p class="feature-description">
+                    Интерактивные задания и проекты для закрепления материала
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Сообщество</h3>
+                <p class="feature-description">
+                    Общайтесь с другими студентами и получайте обратную связь
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Прогресс</h3>
+                <p class="feature-description">
+                    Отслеживайте свой прогресс и получайте сертификаты
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Preview -->
+<section class="courses-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Популярные курсы</h2>
+            <p class="section-subtitle">
+                Начните обучение с самых востребованных направлений
+            </p>
+        </div>
+        
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-image">
+                    <i class="fab fa-python"></i>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">Python для начинающих</h3>
+                    <p class="course-description">
+                        Освойте основы программирования на самом популярном языке
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            30 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/courses/python" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <i class="fab fa-js-square"></i>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">JavaScript Full Stack</h3>
+                    <p class="course-description">
+                        Станьте full-stack разработчиком с JavaScript
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            45 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Средний
+                        </span>
+                    </div>
+                    <a href="/courses/javascript" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">Базы данных и SQL</h3>
+                    <p class="course-description">
+                        Научитесь проектировать базы данных и писать SQL-запросы
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            25 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/courses/sql" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-actions">
+            <a href="/courses" class="btn btn-primary">
+                <i class="fas fa-book"></i>
+                Все курсы
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Начните обучение сегодня</h2>
+            <p class="cta-description">
+                Присоединяйтесь к тысячам студентов, которые уже начали свой путь в IT
+            </p>
+            <a href="/register" class="btn btn-primary btn-large">
+                <i class="fas fa-user-plus"></i>
+                Зарегистрироваться бесплатно
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/page/index.js"></script>
+{% endblock %}

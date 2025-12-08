@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EduPlatform | Образовательная платформа{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/page/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduPlatform</span>
+                </a>
+                
+                <nav class="nav-desktop">
+                    <a href="/courses" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Курсы</span>
+                    </a>
+                    <a href="/lessons" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Уроки</span>
+                    </a>
+                    <a href="/about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>О нас</span>
+                    </a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    {% if user_email and user_email != 'test@example.com' %}
+                    <div class="user-menu">
+                        <button class="user-btn" id="userMenuBtn">
+                            <i class="fas fa-user-circle"></i>
+                            <span>{{ user_email }}</span>
+                        </button>
+                        <div class="dropdown" id="userDropdown">
+                            <a href="/profile" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Профиль</span>
+                            </a>
+                            <a href="/dashboard" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Дашборд</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Выйти</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="auth-buttons">
+                        <a href="/login" class="btn btn-outline">Вход</a>
+                        <a href="/register" class="btn btn-primary">Регистрация</a>
+                    </div>
+                    {% endif %}
+                    
+                    <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="/courses" class="mobile-nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Курсы</span>
+                </a>
+                <a href="/lessons" class="mobile-nav-link">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Уроки</span>
+                </a>
+                <a href="/about" class="mobile-nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>О нас</span>
+                </a>
+                {% if not user_email or user_email == 'test@example.com' %}
+                <div class="mobile-auth">
+                    <a href="/login" class="btn btn-outline btn-block">Вход</a>
+                    <a href="/register" class="btn btn-primary btn-block">Регистрация</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="/" class="logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>EduPlatform</span>
+                    </a>
+                    <p class="footer-text">
+                        Современная образовательная платформа для эффективного обучения
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Навигация</h3>
+                    <a href="/courses" class="footer-link">Курсы</a>
+                    <a href="/lessons" class="footer-link">Уроки</a>
+                    <a href="/about" class="footer-link">О нас</a>
+                    <a href="/contact" class="footer-link">Контакты</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Правовая информация</h3>
+                    <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
+                    <a href="/terms" class="footer-link">Условия использования</a>
+                    <a href="/cookies" class="footer-link">Политика cookies</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@eduplatform.com</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 EduPlatform. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/page/base.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -23,3 +23,4 @@ async def read_profile(current_user: User = Depends(get_current_user)):
 async def protected_users(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     users = db.query(User).all()
     return {"users": [{"email": u.email} for u in users]}
+

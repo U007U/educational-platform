@@ -32,3 +32,4 @@ def create_course(course: CourseCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[CourseResponse])
 def get_courses(db: Session = Depends(get_db)):
     return db.query(Course).all()
+

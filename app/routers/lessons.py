@@ -44,3 +44,4 @@ def get_lessons_by_course(course_id: int, db: Session = Depends(get_db)):
     if not lessons:
         raise HTTPException(status_code=404, detail="No lessons found for this course")
     return lessons
+
