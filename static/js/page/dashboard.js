@@ -1,27 +1,27 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('📊 Dashboard loaded');
-    
+
     const token = localStorage.getItem('access_token');
-    const userEmail = localStorage.getItem('user_email');
-    
+    const userEmail = localStorage.getItem('userEmail');
+
     if (!token || !userEmail) {
-        window.location.href = '/';
+        window.location.href = '/auth/login';  // ✅ На логин!
         return;
     }
-    
+
     // Загрузка данных пользователя
     loadDashboardData();
-    
+
     // Инициализация графика
     initProgressChart();
-    
+
     // Загрузка курсов
     loadUserCourses();
-    
+
     async function loadDashboardData() {
         try {
             // Получение статистики
-            const stats = await window.authRequest('/api/stats'); // Нужно создать endpoint
+            const stats = await window.apiRequest('/api/stats'); // Нужно создать endpoint
             if (stats.success) {
                 updateStats(stats.data);
             }
@@ -29,17 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading dashboard data:', error);
         }
     }
-    
+
     function updateStats(data) {
         document.getElementById('activeCourses').textContent = data.active_courses || 0;
         document.getElementById('completedLessons').textContent = data.completed_lessons || 0;
         document.getElementById('learningHours').textContent = data.learning_hours || 0;
         document.getElementById('achievements').textContent = data.achievements || 0;
     }
-    
+
     async function loadUserCourses() {
         try {
-            const response = await window.authRequest('/api/users/me/courses'); // Нужно создать endpoint
+            const response = await window.apiRequest('/api/users/me/courses'); // Нужно создать endpoint
             if (response.success) {
                 renderCourses(response.data);
             }
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading courses:', error);
         }
     }
-    
+
     function renderCourses(courses) {
         const container = document.getElementById('coursesList');
         if (!courses || courses.length === 0) {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             return;
         }
-        
+
         container.innerHTML = courses.map(course => `
             <div class="course-item">
                 <div class="course-info">
@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
     }
-    
+
     function initProgressChart() {
         const ctx = document.getElementById('progressCanvas').getContext('2d');
-        
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -120,14 +120,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Глобальные функции
-    window.continueCourse = function(courseId) {
+    window.continueCourse = function (courseId) {
         showNotification('Переход к курсу...', 'info');
         setTimeout(() => {
             window.location.href = `/courses/${courseId}`;
         }, 500);
     };
-    
+
     console.log('✅ Dashboard initialized');
 });

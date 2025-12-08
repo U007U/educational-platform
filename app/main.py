@@ -35,16 +35,21 @@ async def read_root(request: Request):
         {"request": request, "user_email": user_email}
     )
 
+# @app.get("/dashboard", response_class=HTMLResponse)
+# async def dashboard(request: Request):
+#     user_email = request.cookies.get("user_email")
+#     if not user_email:
+#         return RedirectResponse(url="/login")
+    
+#     return templates.TemplateResponse(
+#         "dashboard.html",
+#         {"request": request, "user_email": user_email}
+#     )
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
-    user_email = request.cookies.get("user_email")
-    if not user_email or user_email == "test@example.com":
-        return RedirectResponse(url="/")
-    
-    return templates.TemplateResponse(
-        "dashboard.html",
-        {"request": request, "user_email": user_email}
-    )
+    print("🔥 MAIN DASHBOARD HIT!")  # ← ДОБАВЬ
+    user_email = request.cookies.get("user_email") or "test@example.com"
+    return templates.TemplateResponse("dashboard.html", {"request": request, "user_email": user_email})
 
 @app.get("/docs", response_class=HTMLResponse)
 async def api_docs(request: Request):
@@ -53,6 +58,15 @@ async def api_docs(request: Request):
         "docs.html",
         {"request": request, "user_email": user_email}
     )
+
+@app.get("/about", response_class=HTMLResponse)
+async def about_page(request: Request):
+    user_email = request.cookies.get("user_email") or "test@example.com"
+    return templates.TemplateResponse(
+        "about.html",
+        {"request": request, "user_email": user_email}
+    )
+
 
 # 404 страница
 @app.exception_handler(404)

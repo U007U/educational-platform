@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer,  OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse  
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime, timedelta
@@ -9,6 +11,8 @@ from app.database import get_db
 from app.models import User
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+templates = Jinja2Templates(directory="templates/page")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
@@ -34,6 +38,16 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+@router.get("/register", response_class=HTMLResponse)
+async def register_page(request: Request):
+    user_email = request.cookies.get("user_email") or None
+    return templates.TemplateResponse("register.html", {"request": request, "user_email": user_email})
+
+@router.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    user_email = request.cookies.get("user_email") or None
+    return templates.TemplateResponse("login.html", {"request": request, "user_email": user_email})
 
 @router.post("/register", response_model=Token)
 def register(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

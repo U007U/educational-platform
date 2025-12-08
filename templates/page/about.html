@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}О нас - EduPlatform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/about.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section mb-5">
+        <div class="text-center">
+            <h1 class="mb-4">О платформе EduPlatform</h1>
+            <p class="lead text-muted mb-5" style="max-width: 600px; margin: 0 auto;">
+                Современная образовательная платформа для эффективного обучения с использованием 
+                передовых технологий FastAPI, PostgreSQL и Docker.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-grid mb-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-rocket fa-3x text-primary"></i>
+                    </div>
+                    <h3>Высокая производительность</h3>
+                    <p>FastAPI обеспечивает молниеносную скорость работы и отличную поддержку асинхронности.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-database fa-3x text-primary"></i>
+                    </div>
+                    <h3>Надёжная база данных</h3>
+                    <p>PostgreSQL с SQLAlchemy ORM гарантирует целостность данных и масштабируемость.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4 h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-cogs fa-3x text-primary"></i>
+                    </div>
+                    <h3>Современный стек</h3>
+                    <p>Docker контейнеризация и современные DevOps практики для стабильной работы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section bg-secondary p-5 rounded mb-5">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <h2 class="text-primary">100+</h2>
+                <p>Курсов</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-primary">5000+</h2>
+                <p>Студентов</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-primary">50+</h2>
+                <p>Преподавателей</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-primary">99.9%</h2>
+                <p>Время работы</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team-section mb-5">
+        <h2 class="text-center mb-5">Наша команда</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="team-card text-center p-4 border rounded">
+                    <div class="team-avatar mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5>Иван Петров</h5>
+                    <p class="text-muted">Fullstack Developer</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-card text-center p-4 border rounded">
+                    <div class="team-avatar mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5>Мария Сидорова</h5>
+                    <p class="text-muted">UX/UI Designer</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-card text-center p-4 border rounded">
+                    <div class="team-avatar mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5>Алексей Иванов</h5>
+                    <p class="text-muted">DevOps Engineer</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-card text-center p-4 border rounded">
+                    <div class="team-avatar mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5>Елена Козлова</h5>
+                    <p class="text-muted">Product Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
