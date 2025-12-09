@@ -35,16 +35,6 @@ async def read_root(request: Request):
         {"request": request, "user_email": user_email}
     )
 
-# @app.get("/dashboard", response_class=HTMLResponse)
-# async def dashboard(request: Request):
-#     user_email = request.cookies.get("user_email")
-#     if not user_email:
-#         return RedirectResponse(url="/login")
-    
-#     return templates.TemplateResponse(
-#         "dashboard.html",
-#         {"request": request, "user_email": user_email}
-#     )
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
     print("🔥 MAIN DASHBOARD HIT!")  # ← ДОБАВЬ
@@ -64,6 +54,23 @@ async def about_page(request: Request):
     user_email = request.cookies.get("user_email") or "test@example.com"
     return templates.TemplateResponse(
         "about.html",
+        {"request": request, "user_email": user_email}
+    )
+
+@app.get("/courses", response_class=HTMLResponse)
+async def courses_page(request: Request):
+    user_email = request.cookies.get("user_email") or "test@example.com"
+    return templates.TemplateResponse(
+        "courses.html",
+        {"request": request, "user_email": user_email}
+    )
+
+
+@app.get("/lessons", response_class=HTMLResponse)
+async def lessons_page(request: Request):
+    user_email = request.cookies.get("user_email") or "test@example.com"
+    return templates.TemplateResponse(
+        "lessons.html",
         {"request": request, "user_email": user_email}
     )
 

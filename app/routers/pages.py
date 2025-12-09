@@ -17,27 +17,6 @@ async def get_courses(request: Request, db: Session = Depends(get_db)):
     # Пока простой список
     return templates.TemplateResponse("courses.html", {"request": request})
 
-# @router.get("/dashboard", response_class=HTMLResponse)
-# async def dashboard(request: Request):
-#     user_email = request.cookies.get("user_email") or "test@example.com"
-#     print("🚀 ===== DASHBOARD РОУТ =======")
-#     print(f"📧 user_email: '{request.cookies.get('user_email')}'")
-    
-#     try:
-#         user_email = request.cookies.get("user_email")
-#         print("✅ Template rendering...")
-#         response = templates.TemplateResponse(
-#             "page/dashboard.html",
-#             {"request": request, "user_email": user_email}
-#         )
-#         print("✅ Template OK!")
-#         return response
-#     except Exception as e:
-#         print(f"💥 ОШИБКА: {e}")
-#         print(f"💥 TYPE: {type(e)}")
-#         raise
-#     return templates.TemplateResponse("page/dashboard.html", {"request": request, "user_email": user_email})
-@router.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
     print("🚀 ===== PAGES DASHBOARD РОУТ (/pages/dashboard) =======")
     user_email = request.cookies.get("user_email") or "test@example.com"

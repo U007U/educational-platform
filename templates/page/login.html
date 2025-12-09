@@ -1,65 +1,37 @@
-<!DOCTYPE html>
-<html lang="ru" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход - EduPlatform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/page/base.css">
-    <link rel="stylesheet" href="/static/css/page/login.css">
-</head>
-<body>
-    <!-- Header из base.html -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>EduPlatform</span>
-                </a>
-                <div class="header-actions">
-                    <a href="/" class="btn btn-outline">Главная</a>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="menu-toggle" id="menuToggle" aria-label="Меню">
-                        <span></span><span></span><span></span>
-                    </button>
-                </div>
+{% extends "base.html" %}
+{% block title %}Вход - EduPlatform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/login.css">
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+    <div class="login-card">
+        <h2 class="login-title">Вход</h2>
+        <p class="login-subtitle">Войдите в свою учетную запись</p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="username" class="form-control" placeholder="test@example.com" required>
             </div>
-        </div>
-    </header>
-
-    <!-- Login Form -->
-    <main class="main-content">
-        <div class="login-container">
-            <div class="login-card">
-                <h1>Добро пожаловать!</h1>
-                <p>Войдите в свою учетную запись</p>
-                
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="username" placeholder="test@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Пароль</label>
-                        <input type="password" id="password" name="password" placeholder="123456" required>
-                    </div>
-                    <button type="submit" id="loginBtn" class="btn btn-primary">Войти</button>
-                </form>
-                
-                <div id="loginError" class="error-message" style="display: none;"></div>
-                <div class="demo-info">
-                    <p><strong>Демо:</strong> test@example.com : 123456</p>
-                </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Пароль</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="123456" required>
             </div>
+            <button type="submit" id="loginBtn" class="btn btn-primary btn-block">Войти</button>
+        </form>
+
+        <div id="loginError" class="error-message" style="display: none;"></div>
+
+        <div class="login-demo">
+            <p><strong>Демо:</strong> test@example.com : 123456</p>
         </div>
-    </main>
+    </div>
+</div>
+{% endblock %}
 
-    <script src="/static/js/page/base.js"></script>
-    <script src="/static/js/page/login.js"></script>
-</body>
-</html>
-
+{% block extra_js %}
+<script src="/static/js/page/login.js"></script>
+{% endblock %}

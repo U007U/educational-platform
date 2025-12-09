@@ -1,33 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Регистрация - EduPlatform{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/register.css">
+{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-lg">
-                <div class="card-body p-5">
-                    <h2 class="text-center mb-4">Регистрация</h2>
-                    <form id="registerForm">
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Пароль</label>
-                            <input type="password" class="form-control" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
-                    </form>
-                    <div class="text-center mt-4">
-                        <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
-                    </div>
-                </div>
+<div class="register-page">
+    <div class="register-card">
+        <h2 class="register-title">Регистрация</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="username" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+        </form>
+        <p class="register-footer-text">
+            Уже есть аккаунт? <a href="/auth/login">Войти</a>
+        </p>
     </div>
 </div>
 {% endblock %}
+
 
 {% block extra_js %}
 <script src="/static/js/page/register.js"></script>
