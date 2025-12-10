@@ -1,10 +1,128 @@
 {% extends "base.html" %}
+
 {% block title %}Курсы - EduPlatform{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/index.css">
+{% endblock %}
+
 {% block content %}
-<div class="container text-center py-5">
-    <h1>Курсы</h1>
-    <p class="lead">Раздел в разработке. Скоро здесь появятся доступные курсы.</p>
-    <a href="/" class="btn btn-primary mt-3">← На главную</a>
-</div>
+<section class="courses-section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Курсы</h1>
+            <p class="section-subtitle">
+                Подборка популярных направлений для старта и прокачки навыков в IT
+            </p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fab fa-python"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">Python для начинающих</h3>
+                    <p class="course-description">
+                        Освойте основы программирования на Python и сделайте первые проекты.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            30 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/courses/python" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fab fa-js-square"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">JavaScript Full Stack</h3>
+                    <p class="course-description">
+                        Научитесь создавать современные веб-приложения на JavaScript.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            45 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Средний
+                        </span>
+                    </div>
+                    <a href="/courses/javascript" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">Базы данных и SQL</h3>
+                    <p class="course-description">
+                        Разберитесь в проектировании БД и написании эффективных SQL-запросов.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            25 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/courses/sql" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">DevOps и Docker</h3>
+                    <p class="course-description">
+                        Научитесь контейнеризировать приложения и настраивать CI/CD.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            35 часов
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Средний
+                        </span>
+                    </div>
+                    <a href="/courses/devops" class="btn btn-outline btn-block">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-actions">
+            <a href="/" class="btn btn-outline">
+                ← На главную
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}

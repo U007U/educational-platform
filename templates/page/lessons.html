@@ -1,10 +1,103 @@
 {% extends "base.html" %}
+
 {% block title %}Уроки - EduPlatform{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/page/index.css">
+{% endblock %}
+
 {% block content %}
-<div class="container text-center py-5">
-    <h1>Уроки</h1>
-    <p class="lead">Раздел в разработке. Скоро здесь появятся уроки и материалы.</p>
-    <a href="/" class="btn btn-primary mt-3">← На главную</a>
-</div>
+<section class="courses-section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Уроки</h1>
+            <p class="section-subtitle">
+                Подборка уроков и материалов для самостоятельного изучения
+            </p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">Основы Python</h3>
+                    <p class="course-description">
+                        Короткие уроки по синтаксису, типам данных и базовым конструкциям.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            10 уроков
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/lessons/python-basics" class="btn btn-outline btn-block">
+                        Перейти к урокам
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">Алгоритмы и структуры данных</h3>
+                    <p class="course-description">
+                        Пошаговые разборы основных структур и алгоритмов с примерами.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            15 уроков
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Средний
+                        </span>
+                    </div>
+                    <a href="/lessons/algorithms" class="btn btn-outline btn-block">
+                        Перейти к урокам
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card--course">
+                <div class="card--course-image">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="card--course-body">
+                    <h3 class="course-title">Веб-разработка</h3>
+                    <p class="course-description">
+                        HTML, CSS и основы JavaScript для создания веб-интерфейсов.
+                    </p>
+                    <div class="course-meta">
+                        <span class="course-duration">
+                            <i class="fas fa-clock"></i>
+                            20 уроков
+                        </span>
+                        <span class="course-level">
+                            <i class="fas fa-signal"></i>
+                            Начальный
+                        </span>
+                    </div>
+                    <a href="/lessons/web" class="btn btn-outline btn-block">
+                        Перейти к урокам
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-actions">
+            <a href="/" class="btn btn-outline">
+                ← На главную
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}
