@@ -14,12 +14,14 @@
     user-select: none;
 }
 
+/* Основная акцентная кнопка (заполненная) */
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
 }
 
+/* Состояние hover для основной кнопки */
 .btn-primary:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
@@ -28,13 +30,14 @@
     box-shadow: var(--shadow-md);
 }
 
+/* Вторичная кнопка с обводкой (без заливки) */
 .btn-outline {
     background-color: transparent;
     color: var(--secondary-color);
     border-color: var(--secondary-color);
 }
 
-
+/* Hover для вторичной кнопки: заливка основным цветом */
 .btn-outline:hover {
     background-color: var(--primary-color);
     color: white;
@@ -42,10 +45,12 @@
     box-shadow: var(--shadow-md);
 }
 
+/* Ширина 100% от контейнера (кнопка на всю строку) */
 .btn-block {
     width: 100%;
 }
 
+/* Размер иконок внутри кнопки */
 .btn i {
     font-size: 1.1em;
 }
