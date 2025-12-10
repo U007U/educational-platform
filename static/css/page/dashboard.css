@@ -1,3 +1,5 @@
+/* ===== DASHBOARD LAYOUT ===== */
+
 .dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -19,6 +21,8 @@
     font-size: 1.2rem;
 }
 
+/* ===== STATS GRID ===== */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -26,35 +30,13 @@
     margin-bottom: var(--spacing-xl);
 }
 
+/* .stat-card использует общий .card и .card--feature,
+   здесь только layout внутри карточки. */
+
 .stat-card {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-lg);
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    border: 1px solid var(--border-color);
-    transition: transform var(--transition-normal);
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.stat-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    border-radius: var(--border-radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.stat-icon i {
-    font-size: 1.8rem;
-    color: white;
 }
 
 .stat-content h3 {
@@ -70,19 +52,18 @@
     color: var(--text-primary);
 }
 
+/* ===== MAIN DASHBOARD GRID ===== */
+
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: var(--spacing-lg);
 }
 
-.dashboard-card {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-lg);
-    border: 1px solid var(--border-color);
-}
+/* .dashboard-card тоже использует .card и .card--feature,
+   фон/рамка/скругление задаются в cards.css. */
 
+/* Заголовки внутри карточек дашборда */
 .card-title {
     display: flex;
     align-items: center;
@@ -96,6 +77,8 @@
 .card-title i {
     color: var(--primary-color);
 }
+
+/* ===== CONTENT BLOCKS ===== */
 
 .courses-list {
     min-height: 200px;
