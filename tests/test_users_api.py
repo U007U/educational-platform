@@ -42,12 +42,16 @@ def test_create_and_get_user():
     assert "created_at" in data
     user_id = data["id"]
 
-    # 2. Получаем список пользователей
+        # 2. Получаем список пользователей
     response = client.get("/users/")
     assert response.status_code == 200
     users = response.json()
-    assert len(users) == 1
-    assert users[0]["id"] == user_id
+
+    # В списке может быть больше пользователей (добавлены другими тестами),
+    # поэтому проверяем, что среди них есть наш user_id.
+    ids = [u["id"] for u in users]
+    assert user_id in ids
+
 
     # 3. Получаем пользователя по id
     response = client.get(f"/users/{user_id}")
