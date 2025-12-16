@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
@@ -5,8 +8,16 @@ from logging.config import fileConfig
 from app.database import Base  # импорт твоей базы моделей
 from app import models  # важно: просто импорт, чтобы модели зарегистрировались в Base.metadata
 
+load_dotenv()
+
+
 
 config = context.config
+
+# Берём DATABASE_URL из окружения (или из alembic.ini как запасной вариант)
+database_url = os.getenv("DATABASE_URL") or config.get_main_option("sqlalchemy.url")
+config.set_main_option("sqlalchemy.url", database_url)
+
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
