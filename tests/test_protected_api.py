@@ -47,3 +47,22 @@ def test_protected_authorized():
     assert resp.status_code == 200
     data = resp.json()
     assert data["email"] == "protected@example.com"
+
+def test_protected_invalid_token():
+    # Явно некорректный JWT-токен (структура невалидна)
+    invalid_token = "this.is.not.a.valid.jwt"
+
+    resp = client.get(
+        "/protected/me",
+        headers={"Authorization": f"Bearer {invalid_token}"}
+    )
+
+    assert resp.status_code == 401
+    body = resp.json()
+    # Важно не «приковывать» себя к одной фразе, а описать класс проблемы
+    assert body["detail"] in (
+        "Could not validate credentials",
+        "Not authenticated",
+        "Invalid token or expired token",
+    )
+
