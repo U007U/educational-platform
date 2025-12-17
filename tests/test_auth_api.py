@@ -37,3 +37,30 @@ def test_register_and_login():
     token_data = response.json()
     assert "access_token" in token_data
     assert token_data["token_type"] == "bearer"
+
+def test_login_wrong_password():
+    # Сначала регистрируем пользователя с корректным паролем
+    register_data = {
+        "username": "wrongpass@example.com",
+        "password": "correct-password",
+    }
+    resp = client.post("/auth/register", data=register_data)
+    assert resp.status_code == 200
+
+    # Пытаемся залогиниться с тем же email, но другим (неверным) паролем
+    login_data = {
+        "username": "wrongpass@example.com",
+        "password": "incorrect-password",
+    }
+    resp = client.post("/auth/token", data=login_data)
+
+    assert resp.status_code == 401
+    body = resp.json()
+    # Текст может немного отличаться, фиксируем именно класс ошибки
+    assert body["detail"] in (
+        "Incorrect username or password",
+        "Invalid credentials",
+        "Could not validate credentials",
+        "Incorrect credentials",
+    )
+
