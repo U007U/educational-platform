@@ -64,3 +64,20 @@ def test_login_wrong_password():
         "Incorrect credentials",
     )
 
+def test_register_missing_password_returns_422():
+    # Отправляем форму без обязательного поля password
+    form_data = {
+        "username": "no-password@example.com",
+        # "password" намеренно не отправляем
+    }
+
+    resp = client.post("/auth/register", data=form_data)
+
+    assert resp.status_code == 422
+    body = resp.json()
+    # FastAPI по умолчанию возвращает структуру ошибки в поле "detail"
+    assert "detail" in body
+    # Минимальная проверка: среди ошибок есть что-то про "password"
+    # (это не жёсткий контракт, но даёт уверенность, что ошибка не какая‑то другая)
+    assert any("password" in str(err.get("loc", [])) for err in body["detail"])
+
