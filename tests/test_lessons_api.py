@@ -76,3 +76,18 @@ def test_create_lesson_for_course_and_get_by_course():
     course_lessons = response.json()
     assert len(course_lessons) == 1
     assert course_lessons[0]["course_id"] == course_id
+
+def test_get_lessons_for_nonexistent_course_returns_404():
+    nonexistent_course_id = 99999
+
+    response = client.get(f"/lessons/course/{nonexistent_course_id}")
+
+    # Главное требование контракта: ресурс не найден -> 404
+    assert response.status_code == 404
+
+    # Ответ не JSON, а HTML-страница 404, поэтому парсим как текст
+    text = response.text
+    # Минимально убеждаемся, что это именно страница об ошибке, а не что-то левое
+    assert "404" in text or "Not Found" in text or "не найден" in text
+
+
