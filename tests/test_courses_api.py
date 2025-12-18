@@ -75,3 +75,32 @@ def test_get_nonexistent_course_returns_404():
     text = response.text
     # Минимальная проверка, что это действительно страница об ошибке 404
     assert "404" in text or "Not Found" in text or "не найден" in text
+
+def test_create_course_missing_title_returns_422():
+    # Создаём преподавателя, как в основном тесте
+    db = SessionLocal()
+    teacher = models.User(
+        email="teacher-422@example.com",
+        full_name="Teacher 422",
+        hashed_password="dummy-hash",
+        role="teacher",
+    )
+    db.add(teacher)
+    db.commit()
+    db.refresh(teacher)
+    db.close()
+
+    # Пытаемся создать курс БЕЗ title
+    payload = {
+        # "title": "Missing title",  # намеренно не отправляем
+        "description": "Course without title",
+        "teacher_id": teacher.id,
+    }
+
+    resp = client.post("/courses/", json=payload)
+
+    assert resp.status_code == 422
+    body = resp.json()
+    assert "detail" in body
+    # Убеждаемся, что среди ошибок фигурирует поле "title"
+    assert any("title" in str(err.get("loc", [])) for err in body["detail"])
