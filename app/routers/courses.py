@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException
+from app import models
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -26,3 +27,28 @@ def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[schemas.CourseRead])
 def get_courses(db: Session = Depends(get_db)):
     return db.query(Course).all()
+
+@router.get("/{course_id}", response_model=schemas.CourseRead)
+def get_course(course_id: int, db: Session = Depends(get_db)):
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if course is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found",
+        )
+    return course
+
+
+@router.delete("/{course_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_course(course_id: int, db: Session = Depends(get_db)):
+    course = db.query(models.Course).filter(models.Course.id == course_id).first()
+    if course is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found",
+        )
+
+    db.delete(course)
+    db.commit()
+    # 204 No Content — тело не возвращаем
+    return

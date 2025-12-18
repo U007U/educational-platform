@@ -104,3 +104,38 @@ def test_create_course_missing_title_returns_422():
     assert "detail" in body
     # Убеждаемся, что среди ошибок фигурирует поле "title"
     assert any("title" in str(err.get("loc", [])) for err in body["detail"])
+
+def test_delete_course_and_then_404_on_get():
+    # 1. Готовим преподавателя
+    db = SessionLocal()
+    teacher = models.User(
+        email="delete-teacher@example.com",
+        full_name="Delete Teacher",
+        hashed_password="dummy-hash",
+        role="teacher",
+    )
+    db.add(teacher)
+    db.commit()
+    db.refresh(teacher)
+
+    # 2. Создаём курс напрямую в БД
+    course = models.Course(
+        title="Course to delete",
+        description="Will be deleted",
+        teacher_id=teacher.id,
+    )
+    db.add(course)
+    db.commit()
+    db.refresh(course)
+    course_id = course.id
+    db.close()
+
+    # 3. Удаляем курс через API
+    resp = client.delete(f"/courses/{course_id}")
+    # Пока допускаем оба варианта 200/204
+    assert resp.status_code in (200, 204)
+
+    # 4. Проверяем, что повторный GET даёт 404
+    resp = client.get(f"/courses/{course_id}")
+    assert resp.status_code == 404
+
