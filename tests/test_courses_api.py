@@ -63,3 +63,15 @@ def test_create_and_list_courses():
     courses = response.json()
     assert len(courses) == 1
     assert courses[0]["title"] == payload["title"]
+
+def test_get_nonexistent_course_returns_404():
+    # Берём заведомо несуществующий id
+    nonexistent_course_id = 99999
+
+    response = client.get(f"/courses/{nonexistent_course_id}")
+
+    assert response.status_code == 404
+    # Ответ у тебя — HTML-страница 404, поэтому не парсим как JSON
+    text = response.text
+    # Минимальная проверка, что это действительно страница об ошибке 404
+    assert "404" in text or "Not Found" in text or "не найден" in text
