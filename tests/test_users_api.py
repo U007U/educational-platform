@@ -72,3 +72,20 @@ def test_get_nonexistent_user_returns_404():
     text = resp.text
     # Минимальная проверка, что это действительно страница об ошибке
     assert "404" in text or "Not Found" in text or "не найден" in text
+
+def test_create_user_missing_email_returns_422():
+    payload = {
+        # "email": "missing@example.com",  # намеренно не отправляем
+        "full_name": "No Email User",
+        "role": "student",
+        "password": "secret123",
+    }
+
+    resp = client.post("/users/", json=payload)
+
+    assert resp.status_code == 422
+    body = resp.json()
+    assert "detail" in body
+    # Проверяем, что среди ошибок фигурирует поле "email"
+    assert any("email" in str(err.get("loc", [])) for err in body["detail"])
+
