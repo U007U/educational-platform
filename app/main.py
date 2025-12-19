@@ -12,8 +12,8 @@ from app.routers import users, courses, lessons, auth, protected, pages
 
 # Остальной код оставьте без изменений
 
-# Создаём таблицы (только один раз)
-Base.metadata.create_all(bind=engine)
+# # Создаём таблицы (только один раз)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="EduPlatform", 
