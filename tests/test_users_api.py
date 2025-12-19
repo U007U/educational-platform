@@ -58,3 +58,17 @@ def test_create_and_get_user():
     assert response.status_code == 200
     user = response.json()
     assert user["email"] == payload["email"]
+
+def test_get_nonexistent_user_returns_404():
+    # Берём заведомо несуществующий id
+    nonexistent_user_id = 99999
+
+    resp = client.get(f"/users/{nonexistent_user_id}")
+
+    # Главное: ресурс не найден -> 404
+    assert resp.status_code == 404
+
+    # Ответ — HTML-страница 404, поэтому не парсим как JSON
+    text = resp.text
+    # Минимальная проверка, что это действительно страница об ошибке
+    assert "404" in text or "Not Found" in text or "не найден" in text
