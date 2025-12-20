@@ -1,17 +1,26 @@
-from app import models
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 from typing import List
 
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+
+from app import models
 from ..database import get_db
-from ..models import Course, User
+from ..models import Course, User  # User сейчас не используется, но можно оставить
 from .. import schemas
 
 
-router = APIRouter(prefix="/courses", tags=["courses"])
+router = APIRouter(
+    prefix="/courses",
+    tags=["courses"],
+)
 
 
-@router.post("/", response_model=schemas.CourseRead)
+@router.post(
+    "/",
+    response_model=schemas.CourseRead,
+    summary="Создать курс",
+    description="Создаёт новый курс с заголовком, описанием и привязкой к преподавателю.",
+)
 def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
     db_course = Course(
         title=course.title,
@@ -24,11 +33,23 @@ def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
     return db_course
 
 
-@router.get("/", response_model=List[schemas.CourseRead])
+@router.get(
+    "/",
+    response_model=List[schemas.CourseRead],
+    summary="Список курсов",
+    description="Возвращает список всех доступных курсов.",
+)
 def get_courses(db: Session = Depends(get_db)):
     return db.query(Course).all()
 
-@router.get("/{course_id}", response_model=schemas.CourseRead)
+
+@router.get(
+    "/{course_id}",
+    response_model=schemas.CourseRead,
+    summary="Получить курс по ID",
+    description="Возвращает данные курса по его идентификатору. Возвращает 404, если курс не найден.",
+    responses={404: {"description": "Курс не найден"}},
+)
 def get_course(course_id: int, db: Session = Depends(get_db)):
     course = db.query(Course).filter(Course.id == course_id).first()
     if course is None:
@@ -38,7 +59,14 @@ def get_course(course_id: int, db: Session = Depends(get_db)):
         )
     return course
 
-@router.put("/{course_id}", response_model=schemas.CourseRead)
+
+@router.put(
+    "/{course_id}",
+    response_model=schemas.CourseRead,
+    summary="Обновить курс",
+    description="Частично обновляет данные курса (например, заголовок и описание). Возвращает 404, если курс не найден.",
+    responses={404: {"description": "Курс не найден"}},
+)
 def update_course(
     course_id: int,
     course_update: schemas.CourseUpdate,
@@ -60,7 +88,13 @@ def update_course(
     return db_course
 
 
-@router.delete("/{course_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{course_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Удалить курс",
+    description="Удаляет курс по ID. Возвращает 404, если курс не найден.",
+    responses={404: {"description": "Курс не найден"}},
+)
 def delete_course(course_id: int, db: Session = Depends(get_db)):
     course = db.query(models.Course).filter(models.Course.id == course_id).first()
     if course is None:
