@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -39,3 +39,24 @@ def get_lessons_by_course(course_id: int, db: Session = Depends(get_db)):
     if not lessons:
         raise HTTPException(status_code=404, detail="No lessons found for this course")
     return lessons
+
+@router.put("/{lesson_id}", response_model=schemas.LessonRead)
+def update_lesson(
+    lesson_id: int,
+    lesson_update: schemas.LessonUpdate,
+    db: Session = Depends(get_db),
+):
+    db_lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
+    if db_lesson is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Lesson not found",
+        )
+
+    update_data = lesson_update.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(db_lesson, field, value)
+
+    db.commit()
+    db.refresh(db_lesson)
+    return db_lesson

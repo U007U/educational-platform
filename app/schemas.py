@@ -75,3 +75,10 @@ class LessonRead(LessonBase):
 
     class Config:
         from_attributes = True
+
+class LessonUpdate(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
+
+    class Config:
+        orm_mode = True

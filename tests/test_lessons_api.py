@@ -90,4 +90,61 @@ def test_get_lessons_for_nonexistent_course_returns_404():
     # Минимально убеждаемся, что это именно страница об ошибке, а не что-то левое
     assert "404" in text or "Not Found" in text or "не найден" in text
 
+def test_update_lesson_success():
+    # создаём преподавателя и курс
+    teacher_payload = {
+        "email": "teacher-update@example.com",
+        "full_name": "Teacher Update",
+        "role": "teacher",
+        "password": "secret123",
+    }
+    resp = client.post("/users/", json=teacher_payload)
+    assert resp.status_code == 200
+    teacher_id = resp.json()["id"]
+
+    course_payload = {
+        "title": "Course for lessons update",
+        "description": "Desc",
+        "teacher_id": teacher_id,
+    }
+    resp = client.post("/courses/", json=course_payload)
+    assert resp.status_code == 200
+    course_id = resp.json()["id"]
+
+    # создаём урок
+    lesson_payload = {
+        "title": "Original lesson title",
+        "content": "Original content",
+        "course_id": course_id,
+    }
+    resp = client.post("/lessons/", json=lesson_payload)
+    assert resp.status_code == 200
+    lesson = resp.json()
+    lesson_id = lesson["id"]
+
+    # обновляем только title
+    update_payload = {
+        "title": "Updated lesson title",
+    }
+    resp = client.put(f"/lessons/{lesson_id}", json=update_payload)
+    assert resp.status_code == 200
+    updated = resp.json()
+    assert updated["id"] == lesson_id
+    assert updated["title"] == "Updated lesson title"
+    assert updated["content"] == "Original content"
+
+def test_update_nonexistent_lesson_returns_404():
+    nonexistent_id = 99999
+    update_payload = {
+        "title": "Does not matter",
+    }
+
+    resp = client.put(f"/lessons/{nonexistent_id}", json=update_payload)
+
+    assert resp.status_code == 404
+
+    # Как и для курсов/пользователей, это HTML-страница 404
+    text = resp.text
+    assert "404" in text or "Not Found" in text or "не найден" in text
+
 
