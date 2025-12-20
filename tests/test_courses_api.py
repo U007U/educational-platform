@@ -139,3 +139,41 @@ def test_delete_course_and_then_404_on_get():
     resp = client.get(f"/courses/{course_id}")
     assert resp.status_code == 404
 
+def test_update_course_success():
+    # создаём курс
+    payload = {
+        "title": "Original title",
+        "description": "Original description",
+        "teacher_id": 1,
+    }
+    resp = client.post("/courses/", json=payload)
+    assert resp.status_code == 200
+    course = resp.json()
+    course_id = course["id"]
+
+    # обновляем только title
+    update_payload = {
+        "title": "Updated title",
+    }
+    resp = client.put(f"/courses/{course_id}", json=update_payload)
+    assert resp.status_code == 200
+    updated = resp.json()
+    assert updated["id"] == course_id
+    assert updated["title"] == "Updated title"
+    assert updated["description"] == "Original description"
+
+def test_update_nonexistent_course_returns_404():
+    nonexistent_id = 99999
+    update_payload = {
+        "title": "Does not matter",
+    }
+
+    resp = client.put(f"/courses/{nonexistent_id}", json=update_payload)
+
+    assert resp.status_code == 404
+
+    # Ответ — HTML-страница 404, не JSON
+    text = resp.text
+    assert "404" in text or "Not Found" in text or "не найден" in text
+
+

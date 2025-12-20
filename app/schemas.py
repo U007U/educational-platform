@@ -47,6 +47,13 @@ class CourseRead(CourseBase):
     class Config:
         from_attributes = True
 
+class CourseUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+
 
 # =========================
 # Lesson schemas
