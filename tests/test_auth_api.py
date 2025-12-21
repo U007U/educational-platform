@@ -81,3 +81,15 @@ def test_register_missing_password_returns_422():
     # (это не жёсткий контракт, но даёт уверенность, что ошибка не какая‑то другая)
     assert any("password" in str(err.get("loc", [])) for err in body["detail"])
 
+def test_register_duplicate_email_returns_400():
+    # 1. Создаём пользователя
+    form_data = {"username": "duplicate@example.com", "password": "secret123"}
+    client.post("/auth/register", data=form_data)
+    
+    # 2. Пытаемся создать с тем же email
+    resp = client.post("/auth/register", data=form_data)
+    
+    # 3. Ожидаем 400
+    assert resp.status_code == 400
+    assert "Email already registered" in resp.json()["detail"]
+
