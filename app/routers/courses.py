@@ -18,7 +18,7 @@ router = APIRouter(
 @router.post(
     "/",
     response_model=schemas.CourseRead,
-    summary="Создать курс",
+    summary="Create course",
     description="Создаёт новый курс с заголовком, описанием и привязкой к преподавателю.",
 )
 def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
@@ -36,7 +36,7 @@ def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
 @router.get(
     "/",
     response_model=List[schemas.CourseRead],
-    summary="Список курсов",
+    summary="List of courses",
     description="Возвращает список всех доступных курсов.",
 )
 def get_courses(db: Session = Depends(get_db)):
@@ -46,7 +46,7 @@ def get_courses(db: Session = Depends(get_db)):
 @router.get(
     "/{course_id}",
     response_model=schemas.CourseRead,
-    summary="Получить курс по ID",
+    summary="Get course by ID",
     description="Возвращает данные курса по его идентификатору. Возвращает 404, если курс не найден.",
     responses={404: {"description": "Курс не найден"}},
 )
@@ -63,7 +63,7 @@ def get_course(course_id: int, db: Session = Depends(get_db)):
 @router.put(
     "/{course_id}",
     response_model=schemas.CourseRead,
-    summary="Обновить курс",
+    summary="Update course",
     description="Частично обновляет данные курса (например, заголовок и описание). Возвращает 404, если курс не найден.",
     responses={404: {"description": "Курс не найден"}},
 )
@@ -91,7 +91,7 @@ def update_course(
 @router.delete(
     "/{course_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    summary="Удалить курс",
+    summary="Delete course",
     description="Удаляет курс по ID. Возвращает 404, если курс не найден.",
     responses={404: {"description": "Курс не найден"}},
 )
