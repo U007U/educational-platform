@@ -65,9 +65,9 @@ async def courses_page(request: Request, db: Session = Depends(get_db)):
     print(f'✅ TITLES: {[c.title for c in courses]}')
     return templates.TemplateResponse("courses.html", {"request": request, "courses": courses})
 
-@router.get("/courses/{course_id}", response_class=HTMLResponse)
+@router.get("/course/{course_id}", response_class=HTMLResponse)
 async def get_course(course_id: int, request: Request, db: Session = Depends(get_db)):
-    print(f'🚀 === /courses/{course_id} HIT! ===')
+    print(f'🚀 === /course/{course_id} HIT! ===')
     print(f'✅ course_id = {course_id} TYPE={type(course_id)}')
     
     course = db.query(Course).filter(Course.id == course_id).first()
