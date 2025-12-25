@@ -212,6 +212,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return { success: false, error: error.message };
         }
     };
+
+    // ===== COURSE LESSONS ACCORDION =====
+    setTimeout(() => {
+        const lessonHeaders = document.querySelectorAll('.lesson-header');
+        console.log('📚 Lessons check:', lessonHeaders.length);
+        if (lessonHeaders.length) {
+            console.log('📚 Lessons accordion init:', lessonHeaders.length);
+            lessonHeaders.forEach(btn => {
+                btn.onclick = function() {
+                    this.closest('.lesson-item').classList.toggle('open');
+                };
+            });
+        }
+    }, 500);
+
     
     // ===== INITIALIZATION =====
     console.log('✅ Base initialization complete');

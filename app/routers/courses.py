@@ -1,14 +1,15 @@
 from typing import List
-
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
-
+from sqlalchemy import select
 from app import models
 from ..database import get_db
-from ..models import Course, User  # User сейчас не используется, но можно оставить
+from ..models import Course, User, Lesson  # User сейчас не используется, но можно оставить
 from .. import schemas
 
-
+templates = Jinja2Templates(directory="templates/page")
 router = APIRouter(
     prefix="/courses",
     tags=["courses"],
@@ -107,3 +108,19 @@ def delete_course(course_id: int, db: Session = Depends(get_db)):
     db.commit()
     # 204 No Content — тело не возвращаем
     return
+
+@router.get("/course/{course_id}", response_class=HTMLResponse)
+async def get_course_page(course_id: int, request: Request, db: Session = Depends(get_db)):
+    course = db.execute(select(Course).filter(Course.id == course_id)).scalar_one_or_none()
+    lessons = db.execute(select(Lesson).filter(Lesson.course_id == course_id)).scalars().all()
+    
+    print(f'🚀 COURSE #{course_id}: {course.title if course else "NOT FOUND"}')
+    print(f'✅ LESSONS: {len(lessons)} уроки')
+    
+    if course:
+        return templates.TemplateResponse("course_detail.html", {
+            "request": request, 
+            "course": course, 
+            "lessons": lessons  # ← 5 уроков!
+        })
+    return templates.TemplateResponse("404.html", {"request": request})

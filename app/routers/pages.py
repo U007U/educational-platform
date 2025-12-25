@@ -6,7 +6,7 @@ from sqlalchemy import select
 from app.database import get_db
 from sqlalchemy.orm import Session
 
-from app.models import Course
+from app.models import Course, Lesson
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates/page")
@@ -47,7 +47,6 @@ async def about_page(request: Request):
         {"request": request, "user_email": user_email}
     )
 
-# В КОНЕЦ pages.py ДОБАВЬ:
 @router.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     user_email = request.cookies.get("user_email") or None
@@ -65,24 +64,20 @@ async def courses_page(request: Request, db: Session = Depends(get_db)):
     print(f'✅ TITLES: {[c.title for c in courses]}')
     return templates.TemplateResponse("courses.html", {"request": request, "courses": courses})
 
+
 @router.get("/course/{course_id}", response_class=HTMLResponse)
-async def get_course(course_id: int, request: Request, db: Session = Depends(get_db)):
-    print(f'🚀 === /course/{course_id} HIT! ===')
-    print(f'✅ course_id = {course_id} TYPE={type(course_id)}')
+async def get_course_page(course_id: int, request: Request, db: Session = Depends(get_db)):
+    course = db.execute(select(Course).filter(Course.id == course_id)).scalar_one_or_none()
+    lessons = db.execute(select(Lesson).filter(Lesson.course_id == course_id)).scalars().all()
     
-    course = db.query(Course).filter(Course.id == course_id).first()
-    print(f'✅ SINGLE COURSE #{course_id}: {course.title if course else "NOT FOUND"}')
+    print(f'🚀 PAGES COURSE #{course_id}: {course.title if course else "NOT FOUND"}')
+    print(f'✅ LESSONS: {len(lessons)} уроки')
     
     if course:
-        print('✅ RENDERING course_detail.html')
-        return templates.TemplateResponse(
-            "course_detail.html",
-            {"request": request, "course": course}
-        )
-    else:
-        print('✅ RENDERING 404.html')
-        return templates.TemplateResponse(
-            "404.html",
-            {"request": request}
-        )
+        return templates.TemplateResponse("course_detail.html", {
+            "request": request, 
+            "course": course, 
+            "lessons": lessons
+        })
+    return templates.TemplateResponse("404.html", {"request": request})
 

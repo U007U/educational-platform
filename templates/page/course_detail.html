@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/page/course_detail.css') }}">
+{% endblock %}
+
 {% block content %}
 <section class="course-detail">
     <div class="container">
@@ -9,11 +14,35 @@
                 <span><i class="fas fa-signal"></i> {{ course.level or 'Начальный' }}</span>
             </div>
         </div>
+
         <div class="course-content">
             <p>{{ course.description }}</p>
             <a href="/courses" class="btn btn-primary">← Назад к курсам</a>
         </div>
+
+        {# 🔽 НОВЫЙ БЛОК АККОРДЕОНА #}
+        <div class="lessons-section">
+            <h2>Содержание курса</h2>
+
+            <div class="lessons-accordion">
+                {% for lesson in lessons %}
+                <div class="lesson-item">
+                    <button class="lesson-header" type="button">
+                        <span class="lesson-task">Task {{ loop.index }}</span>
+                        <span class="lesson-title">{{ lesson.title }}</span>
+                        <span class="lesson-toggle">▼</span>
+                    </button>
+                    <div class="lesson-body">
+                        <p>{{ lesson.content }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% if not lessons %}
+                <p>У этого курса пока нет уроков.</p>
+                {% endif %}
+            </div>
+        </div>
+
     </div>
 </section>
 {% endblock %}
-
