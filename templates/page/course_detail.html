@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="course-detail">
+    <div class="container">
+        <div class="course-header">
+            <h1>{{ course.title }}</h1>
+            <div class="course-meta">
+                <span><i class="fas fa-clock"></i> {{ course.duration or '30' }} часов</span>
+                <span><i class="fas fa-signal"></i> {{ course.level or 'Начальный' }}</span>
+            </div>
+        </div>
+        <div class="course-content">
+            <p>{{ course.description }}</p>
+            <a href="/courses" class="btn btn-primary">← Назад к курсам</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

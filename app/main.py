@@ -57,15 +57,6 @@ async def about_page(request: Request):
         {"request": request, "user_email": user_email}
     )
 
-@app.get("/courses", response_class=HTMLResponse)
-async def courses_page(request: Request):
-    user_email = request.cookies.get("user_email") or "test@example.com"
-    return templates.TemplateResponse(
-        "courses.html",
-        {"request": request, "user_email": user_email}
-    )
-
-
 @app.get("/lessons", response_class=HTMLResponse)
 async def lessons_page(request: Request):
     user_email = request.cookies.get("user_email") or "test@example.com"

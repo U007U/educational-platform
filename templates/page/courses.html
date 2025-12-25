@@ -14,115 +14,43 @@
             <p class="section-subtitle">
                 Подборка популярных направлений для старта и прокачки навыков в IT
             </p>
-        </div>
-
-        <div class="courses-grid">
-            <div class="card card--course">
-                <div class="card--course-image">
-                    <i class="fab fa-python"></i>
-                </div>
-                <div class="card--course-body">
-                    <h3 class="course-title">Python для начинающих</h3>
-                    <p class="course-description">
-                        Освойте основы программирования на Python и сделайте первые проекты.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">
-                            <i class="fas fa-clock"></i>
-                            30 часов
-                        </span>
-                        <span class="course-level">
-                            <i class="fas fa-signal"></i>
-                            Начальный
-                        </span>
+            <div class="courses-grid">
+                {% for course in courses %}
+                <div class="card card--course">
+                    <div class="card--course-image">
+                        {% if 'Python' in course.title %}
+                        <i class="fab fa-python"></i>
+                        {% elif 'JavaScript' in course.title %}
+                        <i class="fab fa-js-square"></i>
+                        {% elif 'SQL' in course.title %}
+                        <i class="fas fa-database"></i>
+                        {% else %}
+                        <i class="fas fa-cloud"></i>
+                        {% endif %}
                     </div>
-                    <a href="/courses/python" class="btn btn-outline btn-block">
-                        Подробнее
-                    </a>
+                    <div class="card--course-body">
+                        <h3 class="course-title">{{ course.title }}</h3>
+                        <p class="course-description">{{ course.description or 'Описание курса' }}</p>
+                        <div class="course-meta">
+                            <span class="course-duration">
+                                <i class="fas fa-clock"></i> {{ course.duration or '30' }} часов
+                            </span>
+                            <span class="course-level">
+                                <i class="fas fa-signal"></i> {{ course.level or 'Начальный' }}
+                            </span>
+                        </div>
+                        <a href="/courses/{{ course.id }}" class="btn btn-outline btn-block">Подробнее</a>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
 
-            <div class="card card--course">
-                <div class="card--course-image">
-                    <i class="fab fa-js-square"></i>
-                </div>
-                <div class="card--course-body">
-                    <h3 class="course-title">JavaScript Full Stack</h3>
-                    <p class="course-description">
-                        Научитесь создавать современные веб-приложения на JavaScript.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">
-                            <i class="fas fa-clock"></i>
-                            45 часов
-                        </span>
-                        <span class="course-level">
-                            <i class="fas fa-signal"></i>
-                            Средний
-                        </span>
-                    </div>
-                    <a href="/courses/javascript" class="btn btn-outline btn-block">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
 
-            <div class="card card--course">
-                <div class="card--course-image">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="card--course-body">
-                    <h3 class="course-title">Базы данных и SQL</h3>
-                    <p class="course-description">
-                        Разберитесь в проектировании БД и написании эффективных SQL-запросов.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">
-                            <i class="fas fa-clock"></i>
-                            25 часов
-                        </span>
-                        <span class="course-level">
-                            <i class="fas fa-signal"></i>
-                            Начальный
-                        </span>
-                    </div>
-                    <a href="/courses/sql" class="btn btn-outline btn-block">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
-
-            <div class="card card--course">
-                <div class="card--course-image">
-                    <i class="fas fa-cloud"></i>
-                </div>
-                <div class="card--course-body">
-                    <h3 class="course-title">DevOps и Docker</h3>
-                    <p class="course-description">
-                        Научитесь контейнеризировать приложения и настраивать CI/CD.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">
-                            <i class="fas fa-clock"></i>
-                            35 часов
-                        </span>
-                        <span class="course-level">
-                            <i class="fas fa-signal"></i>
-                            Средний
-                        </span>
-                    </div>
-                    <a href="/courses/devops" class="btn btn-outline btn-block">
-                        Подробнее
-                    </a>
-                </div>
+            <div class="section-actions">
+                <a href="/" class="btn btn-outline">
+                    ← На главную
+                </a>
             </div>
         </div>
-
-        <div class="section-actions">
-            <a href="/" class="btn btn-outline">
-                ← На главную
-            </a>
-        </div>
-    </div>
 </section>
 {% endblock %}
