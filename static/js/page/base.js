@@ -215,17 +215,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== COURSE LESSONS ACCORDION =====
     setTimeout(() => {
+        const lessonItems = document.querySelectorAll('.lesson-item');
         const lessonHeaders = document.querySelectorAll('.lesson-header');
         console.log('📚 Lessons check:', lessonHeaders.length);
-        if (lessonHeaders.length) {
-            console.log('📚 Lessons accordion init:', lessonHeaders.length);
-            lessonHeaders.forEach(btn => {
-                btn.onclick = function() {
-                    this.closest('.lesson-item').classList.toggle('open');
-                };
-            });
-        }
-    }, 500);
+
+        if (!lessonHeaders.length) return;
+
+        console.log('📚 Lessons accordion init (exclusive):', lessonHeaders.length);
+
+        lessonHeaders.forEach((btn) => {
+            btn.onclick = function () {
+            const currentItem = this.closest('.lesson-item');
+            const isOpen = currentItem.classList.contains('open');
+
+            // закрываем все
+            lessonItems.forEach((item) => item.classList.remove('open'));
+
+            // если текущий был закрыт – открыть его
+            if (!isOpen) {
+                currentItem.classList.add('open');
+            }
+            };
+        });
+        }, 500);
+
 
     
     // ===== INITIALIZATION =====
