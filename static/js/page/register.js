@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         
         try {
-            const response = await fetch('/auth/register', {
+            const response = await fetch('/auth/register-html', {
                 method: 'POST',
                 body: formData
             });

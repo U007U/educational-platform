@@ -81,3 +81,33 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     access_token = create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.post("/register-html", response_class=HTMLResponse)
+async def register_html(request: Request, db: Session = Depends(get_db)):
+    form = await request.form()
+    
+    email = form.get("username")  # ← ИЗМЕНИ: username вместо email
+    full_name = form.get("full_name")
+    password = form.get("password")
+    password_confirm = form.get("password_confirm")
+    
+    if password != password_confirm:
+        return templates.TemplateResponse("register.html", {"request": request, "error": "Пароли не совпадают!"})
+    
+    user = db.query(User).filter(User.email == email).first()
+    if user:
+        return templates.TemplateResponse("register.html", {"request": request, "error": "Email уже зарегистрирован!"})
+    
+    # ✅ СОЗДАНИЕ ПОЛЬЗОВАТЕЛЯ (ДОБАВЬ)
+    hashed_password = get_password_hash(password)
+    db_user = User(
+        email=email,
+        full_name=full_name or email,  # ← full_name или email
+        hashed_password=hashed_password,
+        role="student"
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    
+    return templates.TemplateResponse("login.html", {"request": request, "success": "Регистрация успешна! Войдите."})
+
