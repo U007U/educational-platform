@@ -9,24 +9,31 @@
 <div class="register-page">
     <div class="register-card">
         <h2 class="register-title">Регистрация</h2>
-        <form id="registerForm">
+        <form method="POST" action="/auth/register">  <!-- ✅ 1. method+action -->
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="username" required>
+                <input type="email" class="form-control" name="email" required>  <!-- ✅ 2. name="email" -->
+            </div>
+            <div class="form-group">
+                <label class="form-label">Полное имя</label>  <!-- ✅ 3. ПОЛЕ ИМЕНИ -->
+                <input type="text" class="form-control" name="full_name" required>  <!-- ✅ 4. full_name -->
             </div>
             <div class="form-group">
                 <label class="form-label">Пароль</label>
                 <input type="password" class="form-control" name="password" required>
             </div>
+            <div class="form-group">  <!-- ✅ НОВОЕ ПОЛЕ -->
+                <label class="form-label">Подтвердите пароль</label>
+                <input type="password" class="form-control" name="password_confirm" required>
+            </div>
             <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
         </form>
         <p class="register-footer-text">
-            Уже есть аккаунт? <a href="/auth/login">Войти</a>
+            Уже есть аккаунт? <a href="/auth/login">Войти</a>  <!-- ✅ 5. OK -->
         </p>
     </div>
 </div>
 {% endblock %}
-
 
 {% block extra_js %}
 <script src="/static/js/page/register.js"></script>
