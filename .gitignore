@@ -13,3 +13,6 @@ venv/
 
 # Alembic cache
 migrations/__pycache__/
+
+# PROJECT_STATUS.md
+PROJECT_STATUS.md
