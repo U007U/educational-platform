@@ -35,67 +35,7 @@ educational-platform/
 ---
 
 ## 🔴 ВЫСОКИЙ ПРИОРИТЕТ - СРОЧНО!
-
-### ❌ ПРОБЛЕМА: Проверка паролей в регистрации
-**Файл:** `templates/page/register.html`  
-**Описание:** Нет проверки совпадения паролей на фронтенде
-
-**Быстрое решение - добавьте этот JavaScript:**
-
-Откройте `templates/page/register.html` и перед закрывающим `</body>` добавьте:
-
-```html
-<script>
-// Проверка совпадения паролей
-document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.querySelector('input[name="password"]');
-    const confirmInput = document.querySelector('input[name="confirm_password"]');
-    const form = document.querySelector('form');
-    
-    if (!passwordInput || !confirmInput || !form) return;
-    
-    // Создаем элемент для ошибки
-    const errorDiv = document.createElement('div');
-    errorDiv.style.color = 'red';
-    errorDiv.style.marginTop = '5px';
-    errorDiv.style.fontSize = '14px';
-    confirmInput.parentNode.appendChild(errorDiv);
-    
-    function validatePasswords() {
-        if (passwordInput.value !== confirmInput.value) {
-            errorDiv.textContent = '⚠️ Пароли не совпадают!';
-            confirmInput.style.borderColor = 'red';
-            return false;
-        } else {
-            errorDiv.textContent = '✅ Пароли совпадают';
-            confirmInput.style.borderColor = 'green';
-            return true;
-        }
-    }
-    
-    // Проверка при вводе
-    passwordInput.addEventListener('input', validatePasswords);
-    confirmInput.addEventListener('input', validatePasswords);
-    
-    // Проверка при отправке формы
-    form.addEventListener('submit', function(event) {
-        if (!validatePasswords()) {
-            event.preventDefault();
-            alert('Ошибка: Пароли не совпадают. Пожалуйста, исправьте.');
-            confirmInput.focus();
-        }
-    });
-});
-</script>
-После добавления проверьте:
-
-Сохраните файл
-
-Перезагрузите страницу регистрации (http://localhost:8002/register)
-
-Попробуйте ввести разные пароли - должна появиться ошибка
-
-Попробуйте ввести одинаковые пароли - должна появиться галочка
+*Текущая задача: Настройка полной авторизации*
 
 📊 ОБЩИЙ ПРОГРЕСС
 🎯 БЭКЕНД API: ██████████ 100%
@@ -118,7 +58,7 @@ Dashboard, Courses, Login, Register
 
 Аккордеон уроков
 
-Проверка паролей в регистрации ← СЕЙЧАС ЗДЕСЬ
+Проверка паролей в регистрации ✅
 
 Полная авторизация (frontend → API)
 
