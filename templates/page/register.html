@@ -41,42 +41,36 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- ИЗМЕНЕНИЕ 3: Добавляем inline JavaScript для проверки паролей -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registerForm');
     const password = document.getElementById('password');
     const passwordConfirm = document.getElementById('password_confirm');
-    const passwordError = document.getElementById('passwordError');
+    
+    console.log('Form loaded:', form);
+    console.log('Password field:', password);
+    console.log('Confirm field:', passwordConfirm);
     
     if (form && password && passwordConfirm) {
-        // Проверка при вводе
-        function validatePasswords() {
+        console.log('All fields found, adding validation...');
+        
+        form.addEventListener('submit', function(event) {
+            console.log('Form submit triggered');
+            console.log('Password:', password.value);
+            console.log('Confirm:', passwordConfirm.value);
+            
             if (password.value !== passwordConfirm.value) {
-                passwordError.textContent = '⚠️ Пароли не совпадают!';
-                passwordConfirm.style.borderColor = 'red';
+                console.log('Passwords dont match! Blocking submit...');
+                event.preventDefault();
+                alert('Пароли не совпадают!');
                 return false;
             } else {
-                passwordError.textContent = '✅ Пароли совпадают';
-                passwordConfirm.style.borderColor = 'green';
+                console.log('Passwords match, allowing submit...');
                 return true;
             }
-        }
-        
-        // События на изменение
-        password.addEventListener('input', validatePasswords);
-        passwordConfirm.addEventListener('input', validatePasswords);
-        
-        // Проверка при отправке формы
-        form.addEventListener('submit', function(event) {
-            if (!validatePasswords()) {
-                event.preventDefault();
-                alert('Ошибка: Пароли не совпадают. Пожалуйста, исправьте.');
-                passwordConfirm.focus();
-                return false;
-            }
-            return true;
         });
+    } else {
+        console.error('Some fields not found!');
     }
 });
 </script>

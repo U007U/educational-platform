@@ -9,6 +9,15 @@
 <div class="login-page">
     <div class="login-card">
         <h2 class="login-title">Вход</h2>
+        
+        <!-- ДОБАВЬТЕ ЭТОТ БЛОК -->
+        {% if success %}
+        <div class="alert alert-success">
+            {{ success }}
+        </div>
+        {% endif %}
+        <!-- КОНЕЦ БЛОКА -->
+        
         <p class="login-subtitle">Войдите в свою учетную запись</p>
 
         <form id="loginForm">
