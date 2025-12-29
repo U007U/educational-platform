@@ -12,7 +12,7 @@
         {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
-        <form id="registerForm">
+        <form id="registerForm" method="POST" action="/auth/register-html">
             <div class="form-group">
                 <label class="form-label">Полное имя</label>
                 <input type="text" class="form-control" name="full_name" required>
@@ -23,11 +23,13 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Пароль</label>
-                <input type="password" class="form-control" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Подтвердите пароль</label>
-                <input type="password" class="form-control" name="password_confirm" required>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
+                <!-- ИЗМЕНЕНИЕ 2: Добавлен контейнер для ошибки -->
+                <div id="passwordError" style="color: red; font-size: 14px; margin-top: 5px;"></div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
         </form>
@@ -38,7 +40,44 @@
 </div>
 {% endblock %}
 
-
 {% block extra_js %}
-<script src="/static/js/page/register.js"></script>
+<!-- ИЗМЕНЕНИЕ 3: Добавляем inline JavaScript для проверки паролей -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registerForm');
+    const password = document.getElementById('password');
+    const passwordConfirm = document.getElementById('password_confirm');
+    const passwordError = document.getElementById('passwordError');
+    
+    if (form && password && passwordConfirm) {
+        // Проверка при вводе
+        function validatePasswords() {
+            if (password.value !== passwordConfirm.value) {
+                passwordError.textContent = '⚠️ Пароли не совпадают!';
+                passwordConfirm.style.borderColor = 'red';
+                return false;
+            } else {
+                passwordError.textContent = '✅ Пароли совпадают';
+                passwordConfirm.style.borderColor = 'green';
+                return true;
+            }
+        }
+        
+        // События на изменение
+        password.addEventListener('input', validatePasswords);
+        passwordConfirm.addEventListener('input', validatePasswords);
+        
+        // Проверка при отправке формы
+        form.addEventListener('submit', function(event) {
+            if (!validatePasswords()) {
+                event.preventDefault();
+                alert('Ошибка: Пароли не совпадают. Пожалуйста, исправьте.');
+                passwordConfirm.focus();
+                return false;
+            }
+            return true;
+        });
+    }
+});
+</script>
 {% endblock %}
