@@ -109,5 +109,24 @@ async def register_html(request: Request, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     
-    return templates.TemplateResponse("login.html", {"request": request, "success": "Регистрация успешна! Войдите."})
+    from fastapi.responses import RedirectResponse
+    
+    # Создаем токен для нового пользователя
+    access_token = create_access_token(data={"sub": db_user.email})
+    
+    # Перенаправляем на dashboard с установкой куков
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        max_age=1800  # 30 минут
+    )
+    response.set_cookie(
+        key="user_email",
+        value=db_user.email,
+        max_age=1800
+    )
+    
+    return response
 
