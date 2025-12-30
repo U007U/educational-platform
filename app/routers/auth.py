@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
-from fastapi.security import OAuth2PasswordBearer,  OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse  
+from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime, timedelta
-from jose import jwt, JWTError  # ✅ ПРАВИЛЬНЫЙ IMPORT
+from jose import jwt, JWTError
 from passlib.context import CryptContext
 from app.database import get_db
 from app.models import User
@@ -68,19 +68,11 @@ async def login_page(request: Request):
 
 @router.post("/register", response_model=Token)
 def register(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    # Проверяем дубликат ПЕРЕД try
+    """API регистрация (возвращает JSON Token)"""
+    # Проверяем дубликат
     user = db.query(User).filter(User.email == form_data.username).first()
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    
-@router.get("/logout")
-async def logout():
-    """Выход из системы"""
-    from fastapi.responses import RedirectResponse
-    response = RedirectResponse(url="/", status_code=302)
-    response.delete_cookie(key="access_token")
-    response.delete_cookie(key="user_email")
-    return response
     
     # Создаём пользователя
     hashed_password = get_password_hash(form_data.password)
@@ -97,9 +89,9 @@ async def logout():
     access_token = create_access_token(data={"sub": db_user.email})
     return {"access_token": access_token, "token_type": "bearer"}
 
-
 @router.post("/token", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    """API вход (возвращает JSON Token)"""
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Incorrect credentials")
@@ -109,9 +101,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 
 @router.post("/register-html", response_class=HTMLResponse)
 async def register_html(request: Request, db: Session = Depends(get_db)):
+    """HTML регистрация (возвращает HTML или редирект)"""
     form = await request.form()
     
-    email = form.get("username")  # ← ИЗМЕНИ: username вместо email
+    email = form.get("username")
     full_name = form.get("full_name")
     password = form.get("password")
     password_confirm = form.get("password_confirm")
@@ -123,19 +116,16 @@ async def register_html(request: Request, db: Session = Depends(get_db)):
     if user:
         return templates.TemplateResponse("register.html", {"request": request, "error": "Email уже зарегистрирован!"})
     
-    # ✅ СОЗДАНИЕ ПОЛЬЗОВАТЕЛЯ (ДОБАВЬ)
     hashed_password = get_password_hash(password)
     db_user = User(
         email=email,
-        full_name=full_name or email,  # ← full_name или email
+        full_name=full_name or email,
         hashed_password=hashed_password,
         role="student"
     )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    
-    from fastapi.responses import RedirectResponse
     
     # Создаем токен для нового пользователя
     access_token = create_access_token(data={"sub": db_user.email})
@@ -146,7 +136,7 @@ async def register_html(request: Request, db: Session = Depends(get_db)):
         key="access_token",
         value=access_token,
         httponly=True,
-        max_age=1800  # 30 минут
+        max_age=1800
     )
     response.set_cookie(
         key="user_email",
@@ -156,3 +146,43 @@ async def register_html(request: Request, db: Session = Depends(get_db)):
     
     return response
 
+@router.post("/login-html")
+async def login_html(request: Request, db: Session = Depends(get_db)):
+    """HTML вход (возвращает HTML или редирект)"""
+    form = await request.form()
+    
+    email = form.get("username")
+    password = form.get("password")
+    
+    user = db.query(User).filter(User.email == email).first()
+    
+    if not user or not verify_password(password, user.hashed_password):
+        return templates.TemplateResponse("login.html", {
+            "request": request, 
+            "error": "❌ Неверный email или пароль"
+        })
+    
+    # Создаем токен и редиректим на dashboard
+    access_token = create_access_token(data={"sub": user.email})
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        max_age=1800
+    )
+    response.set_cookie(
+        key="user_email",
+        value=user.email,
+        max_age=1800
+    )
+    
+    return response
+
+@router.get("/logout")
+async def logout():
+    """Выход из системы"""
+    response = RedirectResponse(url="/", status_code=302)
+    response.delete_cookie(key="access_token")
+    response.delete_cookie(key="user_email")
+    return response
