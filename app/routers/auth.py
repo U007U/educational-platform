@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from datetime import datetime, timedelta
-from jose import jwt  # ✅ ПРАВИЛЬНЫЙ IMPORT
+from jose import jwt, JWTError  # ✅ ПРАВИЛЬНЫЙ IMPORT
 from passlib.context import CryptContext
 from app.database import get_db
 from app.models import User
@@ -39,6 +39,23 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+async def get_current_user_from_cookie(request: Request, db: Session = Depends(get_db)):
+    """Получаем текущего пользователя из куков"""
+    token = request.cookies.get("access_token")
+    if not token:
+        return None
+    
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            return None
+    except JWTError:
+        return None
+    
+    user = db.query(User).filter(User.email == email).first()
+    return user
+
 @router.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     user_email = request.cookies.get("user_email") or None
@@ -55,6 +72,15 @@ def register(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Dep
     user = db.query(User).filter(User.email == form_data.username).first()
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
+    
+@router.get("/logout")
+async def logout():
+    """Выход из системы"""
+    from fastapi.responses import RedirectResponse
+    response = RedirectResponse(url="/", status_code=302)
+    response.delete_cookie(key="access_token")
+    response.delete_cookie(key="user_email")
+    return response
     
     # Создаём пользователя
     hashed_password = get_password_hash(form_data.password)

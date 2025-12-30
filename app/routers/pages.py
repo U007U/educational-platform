@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Course
+from app.routers.auth import get_current_user_from_cookie 
 
 router = APIRouter(tags=["pages"])
 templates = Jinja2Templates(directory="templates/page")
@@ -14,10 +15,22 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "user_email": user_email})
 
 @router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request):
+async def dashboard(request: Request, db: Session = Depends(get_db)):
     print("🚀 ===== DASHBOARD (/dashboard) =======")
-    user_email = request.cookies.get("user_email") or "Гость"
-    return templates.TemplateResponse("dashboard.html", {"request": request, "user_email": user_email})
+    
+    # Проверяем авторизацию
+    user = await get_current_user_from_cookie(request, db)
+    if not user:
+        # Перенаправляем на логин если не авторизован
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(url="/auth/login", status_code=302)
+    
+    user_email = user.email
+    return templates.TemplateResponse("dashboard.html", {
+        "request": request, 
+        "user_email": user_email,
+        "user": user  # Передаем объект пользователя
+    })
 
 @router.get("/about", response_class=HTMLResponse)
 async def about_page(request: Request):

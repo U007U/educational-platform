@@ -11,6 +11,20 @@
     <div class="dashboard-header">
         <h1>Добро пожаловать, {{ user_email }}!</h1>
         <p>Ваша образовательная панель управления</p>
+
+        {% if user %}
+        <div class="user-info" style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+            <p><strong>Имя:</strong> {{ user.full_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Роль:</strong> {{ user.role }}</p>
+            <p><strong>ID:</strong> {{ user.id }}</p>
+        </div>
+        <div style="margin-top: 10px;">
+            <a href="/auth/logout" class="btn btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Выйти
+            </a>
+        </div>
+        {% endif %}
     </div>
     
     <div class="stats-grid">
