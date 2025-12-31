@@ -9,25 +9,22 @@
 <div class="login-page">
     <div class="login-card">
         <h2 class="login-title">Вход</h2>
-        
-        <!-- ДОБАВЬТЕ ЭТОТ БЛОК -->
-        {% if success %}
-        <div class="alert alert-success">
-            {{ success }}
-        </div>
-        {% endif %}
-        <!-- КОНЕЦ БЛОКА -->
-        
         <p class="login-subtitle">Войдите в свою учетную запись</p>
 
-        <form id="loginForm">
+        <form id="loginForm" novalidate autocomplete="off">
+            <!-- Фейковые поля для блокировки автозаполнения -->
+            <input type="text" name="fakeusername" style="display:none">
+            <input type="password" name="fakepassword" style="display:none">
+            
             <div class="form-group">
                 <label class="form-label" for="email">Email</label>
-                <input type="email" id="email" name="username" class="form-control" placeholder="test@example.com" required>
+                <input type="email" id="email" name="username" class="form-control" 
+                       placeholder="test@example.com" required>
             </div>
             <div class="form-group">
                 <label class="form-label" for="password">Пароль</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="123456" required>
+                <input type="password" id="password" name="password" class="form-control" 
+                       placeholder="123456" required>
             </div>
             <button type="submit" id="loginBtn" class="btn btn-primary btn-block">Войти</button>
         </form>

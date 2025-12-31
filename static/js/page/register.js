@@ -1,10 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
     const registerForm = document.getElementById('registerForm');
+    const passwordError = document.getElementById('passwordError');
     
     registerForm.addEventListener('submit', async function(e) {
-        e.preventDefault();  // ✅ БЛОКИРУЕТ GET!
+        // Блокируем все
+        e.preventDefault();
+        e.stopPropagation();
         
+        // Сбрасываем ошибки
+        passwordError.textContent = '';
+        
+        // Получаем данные
         const formData = new FormData(registerForm);
+        const password = formData.get('password');
+        const confirmPassword = formData.get('password_confirm');
+        const email = formData.get('username');
+        
+        // ВАЛИДАЦИЯ
+        let errors = [];
+        
+        // Email
+        if (!email) errors.push('Введите email');
+        else if (!email.includes('@') || !email.includes('.')) errors.push('Неверный формат email');
+        
+        // Пароль
+        if (!password) errors.push('Введите пароль');
+        else if (password.length < 6) errors.push('Пароль должен быть не менее 6 символов');
+        else if (password !== confirmPassword) errors.push('Пароли не совпадают');
+        
+        if (errors.length > 0) {
+            passwordError.textContent = errors[0];
+            setTimeout(() => {
+                CustomAlert.error(errors.join('\n'), 'Ошибка ввода');
+            }, 50);
+            return;
+        }
+        
+        // Блокируем кнопку
         const submitBtn = registerForm.querySelector('button[type="submit"]');
         submitBtn.textContent = '⏳ Регистрация...';
         submitBtn.disabled = true;
@@ -16,14 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (response.ok) {
-                alert('✅ Регистрация успешна! Переходим к входу.');
-                window.location.href = '/auth/login';
+                const data = await response.json();
+                setTimeout(() => {
+                    CustomAlert.success('Регистрация успешна! Выполняется вход...', 'Поздравляем!');
+                    window.location.href = '/dashboard';
+                }, 50);
             } else {
                 const error = await response.json();
-                alert('❌ ' + (error.detail || 'Ошибка регистрации'));
+                setTimeout(() => {
+                    CustomAlert.error(error.detail || 'Ошибка регистрации', 'Ошибка');
+                }, 50);
             }
         } catch (error) {
-            alert('❌ Ошибка сервера');
+            setTimeout(() => {
+                CustomAlert.error('Ошибка сервера', 'Сетевая ошибка');
+            }, 50);
         } finally {
             submitBtn.textContent = 'Зарегистрироваться';
             submitBtn.disabled = false;

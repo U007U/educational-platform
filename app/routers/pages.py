@@ -66,3 +66,4 @@ async def get_course_page(course_id: int, request: Request, db: Session = Depend
             "request": request, "course": course
         })
     return templates.TemplateResponse("404.html", {"request": request})
+
